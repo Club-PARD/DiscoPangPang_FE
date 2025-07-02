@@ -42,6 +42,8 @@ struct HomeView: View {
                     
                     Text("캐릭터")
                 }
+                
+                RecordCell(record: mockRecordData)
             }
             .padding(.horizontal, 16)
         }

@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct RecordCell: View {
+    @State private var isshowModal = false
     let today = Date()
     let record: RecordDataModel
     
@@ -22,16 +23,14 @@ struct RecordCell: View {
                 
                 Button(action: {
                     print("버튼 눌림")
+                    isshowModal = true
                 }){
                     Image("more")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
                 }
-                
-            }
-            .padding(0)
-            .frame(maxWidth: .infinity, alignment: .center)
+            } //HStack
             
             VStack(alignment: .leading, spacing: 8) {
                 HStack(alignment: .top, spacing: 8) {
@@ -44,8 +43,7 @@ struct RecordCell: View {
                             .background(Color(red: 0.99, green: 0.94, blue: 0.93))
                             .cornerRadius(8)
                     }
-                }
-                .padding(0)
+                } //HStack
                 
                 Text("\(record.title)")
                   .font(
@@ -53,9 +51,7 @@ struct RecordCell: View {
                       .weight(.bold)
                   )
                   .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
-                  .frame(maxWidth: .infinity, alignment: .topLeading)
-            }
-            .padding(0)
+            } //VStack
             .frame(maxWidth: .infinity, alignment: .topLeading)
             
             VStack(alignment: .trailing, spacing: 16) {
@@ -84,16 +80,21 @@ struct RecordCell: View {
 //                        .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 4)
 //                        .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 0)
                 //}
-            }
-            .padding(0)
-            .frame(maxWidth: .infinity, alignment: .trailing)
-        }
+            } //VStack
+        } //VStack
         .padding(16)
         .frame(width: 361, alignment: .topTrailing)
         .background(Color.white)
         .cornerRadius(16)
         .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 4)
         .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 0)
+        .sheet(isPresented: $isshowModal) {
+            ModalView {
+                isshowModal = false
+            }
+            .presentationDetents([.height(136)])
+            .presentationDragIndicator(.hidden)
+        }
     }
 }
 
