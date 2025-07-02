@@ -8,16 +8,47 @@
 import SwiftUI
 
 struct ContentView: View {
+    
+    @State private var tabSelection = 0
+    
     var body: some View {
-        VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+        TabView(selection: $tabSelection) {
+            HomeView()
+                .tabItem {
+                    Image(tabSelection == 0 ? "Home_" : "Home")
+                    Text("홈")
+                        .foregroundColor((tabSelection == 0) ? .green : .red)
+                }.tag(0)
+            
+            HistoryView()
+                .tabItem {
+                    Image(tabSelection == 1 ? "History_" : "History")
+                    Text("히스토리")
+                }.tag(1)
+            
+            AddView()
+                .tabItem {
+                    Image(tabSelection == 2 ? "Add_" : "Add")
+                    Text("경험추가")
+                }.tag(2)
+            
+            AnalysisView()
+                .tabItem {
+                    Image(tabSelection == 3 ? "Analysis_" : "Analysis")
+                    Text("분석")
+                }.tag(3)
+            
+            MyView()
+                .tabItem {
+                    Image(tabSelection == 4 ? "My_" : "My")
+                    Text("마이페이지")
+                }.tag(4)
         }
-        .padding()
+        // 디자인 시스템(hex값 설정 후) -> 색상 변경 예정
+        .tint(.green)
     }
 }
+
 
 #Preview {
     ContentView()
