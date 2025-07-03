@@ -44,8 +44,7 @@ struct ContentView: View {
                     Text("마이페이지")
                 }.tag(4)
         }
-        // 디자인 시스템(hex값 설정 후) -> 색상 변경 예정
-        .tint(.green)
+        .tint(Color(red: 11 / 255, green: 155 / 255, blue: 155 / 255, opacity: 1))
     }
 }
 
