@@ -26,7 +26,7 @@ struct ContentView: View {
                     Text("히스토리")
                 }.tag(1)
             
-            AddView()
+            AddExperienceView()
                 .tabItem {
                     Image(tabSelection == 2 ? "Add_" : "Add")
                     Text("경험추가")
