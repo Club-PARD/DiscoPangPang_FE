@@ -16,5 +16,5 @@ struct RecordDataModel: Codable {
 }
 
 let mockRecordData: RecordDataModel =
-    RecordDataModel(id: 1, title: "PARD 5기 롱커톤", dueDate: "2025-07-01", answer: "", tag: ["적응", "분석", "행동력"])
+    RecordDataModel(id: 1, title: "PARD 5기 롱커톤", dueDate: "2025.07.01", answer: "", tag: ["적응", "분석", "행동력"])
     
