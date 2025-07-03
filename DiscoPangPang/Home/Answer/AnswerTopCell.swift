@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct AnswerTopView: View {
+struct AnswerTopCell: View {
     var body: some View {
         ZStack {
             Text("PARD 5기 롱커톤")
@@ -27,5 +27,5 @@ struct AnswerTopView: View {
 }
 
 #Preview {
-    AnswerTopView()
+    AnswerTopCell()
 }
