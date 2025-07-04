@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct RecordCell: View {
-    @State private var isshowModal = false
+    @State private var isShowModal = false
+    
     let today = Date()
     let record: RecordDataModel
     
@@ -18,14 +19,14 @@ struct RecordCell: View {
         "관계 형성": ["적응", "연결성", "성장촉진자", "공감", "조화", "포용", "개별화", "긍정", "친밀"],
         "전략적 사고": ["분석", "맥락", "미래지향", "아이디어", "수집", "사색", "학습자", "전략적사고"]
     ]
-        
+    
     let categoryTextColors: [String: Color] = [
         "실행": Color(red: 0.37, green: 0.71, blue: 0.97),
         "영향력": Color(red: 0.49, green: 0.78, blue: 0.56),
         "관계 형성": Color(red: 0.96, green: 0.53, blue: 0.44),
         "전략적 사고": Color(red: 1, green: 0.69, blue: 0.08)
     ]
-
+    
     let categoryBackgroundColors: [String: Color] = [
         "실행": Color(red: 0.91, green: 0.96, blue: 1),
         "영향력": Color(red: 0.92, green: 0.96, blue: 0.93),
@@ -34,6 +35,7 @@ struct RecordCell: View {
     ]
     
     var body: some View {
+        
         VStack(alignment: .trailing, spacing: 16) {
             HStack(alignment: .center) {
                 Text("\(record.dueDate)")
@@ -44,7 +46,7 @@ struct RecordCell: View {
                 
                 Button(action: {
                     print("버튼 눌림")
-                    isshowModal = true
+                    isShowModal = true
                 }){
                     Image("more")
                         .resizable()
@@ -55,11 +57,11 @@ struct RecordCell: View {
             
             VStack(alignment: .leading, spacing: 8) {
                 Text("\(record.title)")
-                  .font(
-                    Font.custom("Pretendard", size: 19)
-                      .weight(.semibold)
-                  )
-                  .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
+                    .font(
+                        Font.custom("Pretendard", size: 19)
+                            .weight(.semibold)
+                    )
+                    .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                 
                 HStack(alignment: .top, spacing: 4) {
                     ForEach(0..<record.tag.count, id: \.self){ index in
@@ -86,10 +88,10 @@ struct RecordCell: View {
             
             ZStack {
                 Rectangle()
-                  .foregroundColor(.clear)
-                  .frame(width: 95, height: 42)
-                  .background(Color(red: 1, green: 0.6, blue: 0.46))
-                  .cornerRadius(12)
+                    .foregroundColor(.clear)
+                    .frame(width: 95, height: 42)
+                    .background(Color(red: 1, green: 0.6, blue: 0.46))
+                    .cornerRadius(12)
                 
                 Text("경험 기록하기")
                     .font(
@@ -106,13 +108,14 @@ struct RecordCell: View {
         .background(Color.white)
         .cornerRadius(16)
         .shadow(color: .black.opacity(0.03), radius: 5, x: 0, y: 4)
-        .sheet(isPresented: $isshowModal) {
+        .sheet(isPresented: $isShowModal) {
             ModalView {
-                isshowModal = false
+                isShowModal = false
             }
             .presentationDetents([.height(136)])
             .presentationDragIndicator(.hidden)
         }
+        
     }
     
     func category(for tag: String) -> String? {
