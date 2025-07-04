@@ -44,7 +44,7 @@ struct ContentView: View {
                     Text("마이페이지")
                 }.tag(4)
         }
-        .tint(Color(red: 11 / 255, green: 155 / 255, blue: 155 / 255, opacity: 1))
+        .tint(Color(red: 1, green: 0.5, blue: 0.32))
     }
 }
 
