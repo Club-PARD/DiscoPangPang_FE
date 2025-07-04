@@ -11,15 +11,17 @@ struct ModalView: View {
     var dismiss: () -> Void
 
     var body: some View {
-        ZStack{
-            Color(red: 218/255, green: 220/255, blue: 220/255)
+        ZStack {
+            Color(red: 218/255, green: 220/255, blue: 220/255, opacity: 1)
                 .ignoresSafeArea()
                 .onTapGesture {
                     dismiss()
                 }
             
             VStack(alignment: .leading, spacing: 32) {
-                Button(action: dismiss) {
+                Button(action: {
+                    print("경험 수정하기 버튼 클릭")
+                }, label: {
                     HStack(spacing: 24) {
                         Image("edit")
                             .resizable()
@@ -29,12 +31,14 @@ struct ModalView: View {
                         Text("경험 수정하기")
                             .font(Font.custom("Pretendard", size: 13))
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
-                    } //HStack
-                }
+                    }  //HStack
+                })
                 
-                Button(action: dismiss) {
+                Button(action: {
+                    print("경험 수정하기 버튼 클릭")
+                }, label: {
                     HStack(spacing: 24) {
-                        Image("close")
+                        Image("Close")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
@@ -42,11 +46,10 @@ struct ModalView: View {
                         Text("경험 삭제하기")
                             .font(Font.custom("Pretendard", size: 13))
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
-                    } //HStack
-                }
-            } //VStack
-            .padding(.top, 32)
-            .padding(.leading, 24)
+                    }  //HStack
+                })
+            } // VStack
+            .padding(EdgeInsets(top: 32, leading: 24, bottom: 0, trailing: 0))
             .frame(width: 360, height: 136, alignment: .topLeading)
             .background(
                 Color.white
