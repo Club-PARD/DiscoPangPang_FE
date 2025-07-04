@@ -7,9 +7,16 @@
 
 import SwiftUI
 
+enum Route: Hashable {
+    case addTag1
+    case addTag2
+    case addTag3
+    case addTag4
+}
+
 struct ContentView: View {
-    
     @State private var tabSelection = 0
+    @State private var path = NavigationPath()
     
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -17,7 +24,6 @@ struct ContentView: View {
                 .tabItem {
                     Image(tabSelection == 0 ? "Home_" : "Home")
                     Text("홈")
-                        .foregroundColor((tabSelection == 0) ? .green : .red)
                 }.tag(0)
             
             HistoryView()
@@ -26,7 +32,23 @@ struct ContentView: View {
                     Text("히스토리")
                 }.tag(1)
             
-            AddExperienceView()
+            NavigationStack(path: $path) {
+                AddExperienceView(path: $path, tabSelection: $tabSelection)
+                    .navigationTitle("경험 추가")
+                    .navigationBarTitleDisplayMode(.inline)
+                    .navigationDestination(for: Route.self) { route in
+                        switch route {
+                        case .addTag1:
+                            AddTag1View(path: $path, tabSelection: $tabSelection)
+                        case .addTag2:
+                            AddTag2View(path: $path, tabSelection: $tabSelection)
+                        case .addTag3:
+                            AddTag3View(path: $path, tabSelection: $tabSelection)
+                        case .addTag4:
+                            AddTag4View(path: $path, tabSelection: $tabSelection)
+                        }
+                    }
+            }
                 .tabItem {
                     Image(tabSelection == 2 ? "Add_" : "Add")
                     Text("경험추가")
