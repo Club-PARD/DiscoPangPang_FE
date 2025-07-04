@@ -31,6 +31,8 @@ struct TagButton: View {
 }
 
 struct AddTagView: View {
+    @Binding var path: NavigationPath
+    
     @State private var selectedTags: [String: Set<String>] = [:]
     
     let categoryTags: [String: [String]] = [
@@ -145,5 +147,5 @@ struct AddTagView: View {
 }
 
 #Preview {
-    AddTagView()
+    AddTagView(path: .constant(NavigationPath()))
 }

@@ -9,117 +9,169 @@ import SwiftUI
 
 struct AddExperienceView: View {
     @State private var title: String = ""
-    @State private var selectedDate = Date()
-    @State private var showDatePicker = false
-    @State private var hasSelectedDate = false
     
-    var formattedDate: String {
-            let formatter = DateFormatter()
-            formatter.locale = Locale(identifier: "ko_KR")
-            formatter.dateFormat = "yyyy년 M월 d일"
-            return formatter.string(from: selectedDate)
-        }
+    @State private var startDate = Date()
+    @State private var endDate = Date()
+    @State private var showStartPicker = false
+    @State private var showEndPicker = false
+    @State private var hasSelectedStartDate = false
+    @State private var hasSelectedEndDate = false
+    
+    @Binding var path: NavigationPath
+    @Binding var tabSelection: Int
+    
+    var isButtonActive: Bool {
+        !title.isEmpty && hasSelectedStartDate && hasSelectedEndDate
+    }
+    
+    func formatDate(_ date: Date) -> String {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 M월 d일"
+        return formatter.string(from: date)
+    }
     
     var body: some View {
-        VStack(alignment: .leading, spacing: 16){
+        VStack(alignment: .leading, spacing: 45){
             VStack(alignment: .leading, spacing: 8) {
                 Text("제목")
-                  .font(Font.custom("Pretendard", size: 15))
-                  .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
-                  .frame(maxWidth: .infinity, alignment: .topLeading)
-                
+                    .font(Font.custom("Pretendard", size: 15))
+                    .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
+                            
                 TextField("경험의 제목을 입력해 주세요.", text: $title)
                     .font(Font.custom("Pretendard", size: 13))
-                    .foregroundColor(title.isEmpty ? Color(red: 0.8, green: 0.82, blue: 0.84) : Color(red: 0.12, green: 0.13, blue: 0.14))
-                    .padding(8)
-                    .frame(width: 320, height: 40, alignment: .leading)
-                    .cornerRadius(4)
-                    .overlay(
-                        RoundedRectangle(cornerRadius: 4)
-                            .inset(by: -0.75)
-                            .stroke(Color(red: 0.9, green: 0.91, blue: 0.92), lineWidth: 1.5)
-                    )
+                    .foregroundColor(title.isEmpty ? Color(red: 0.71, green: 0.73, blue: 0.74) : Color(red: 0.27, green: 0.3, blue: 0.33))
+                    .padding(.horizontal, 20)
+                    .frame(width: 353, height: 62)
+                    .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
+                    .cornerRadius(12)
             }
             .frame(width: 329, alignment: .topLeading)
             
-            VStack(alignment: .leading, spacing: 8) {
-                Text("마감 날짜")
-                  .font(Font.custom("Pretendard", size: 15))
-                  .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
-                  .frame(maxWidth: .infinity, alignment: .topLeading)
-                
-                HStack {
-                    Text(hasSelectedDate ? formattedDate : "마감 날짜를 입력해 주세요.")
-                        .font(.custom("Pretendard", size: 13))
-                        .foregroundColor(hasSelectedDate ? Color(red: 0.12, green: 0.13, blue: 0.14) : Color(red: 0.8, green: 0.82, blue: 0.84))
-
-                    Spacer()
-
-                    Button {
-                        showDatePicker.toggle()
-                    } label: {
-                        Image(systemName: "calendar")
-                            .resizable()
-                            .scaledToFit()
-                            .frame(width: 20, height: 20)
-                            .foregroundColor(.gray)
-                    }
-                }
-                .padding(8)
-                .frame(width: 320, height: 40, alignment: .leading)
-                .cornerRadius(4)
-                .overlay(
-                    RoundedRectangle(cornerRadius: 4)
-                        .stroke(Color(red: 0.9, green: 0.91, blue: 0.92), lineWidth: 1.5)
-                )
-            }
-            .frame(width: 329, alignment: .topLeading)
-            .sheet(isPresented: $showDatePicker) {
-                VStack {
-                    DatePicker("", selection: $selectedDate, displayedComponents: [.date])
-                        .environment(\.locale, Locale(identifier: "ko_KR"))
-                        .datePickerStyle(.wheel)
-                        .labelsHidden()
-                        .padding()
-
-                    Button("완료") {
-                        hasSelectedDate = true
-                        showDatePicker = false
-                    }
-                    .font(.custom("Pretendard", size: 15))
-                    .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
-                    .padding(.bottom, 20)
-                }
-                .presentationDetents([.height(300)])
-            }
+            DateField(
+                label: "시작날짜",
+                date: startDate,
+                hasSelected: hasSelectedStartDate,
+                showPicker: $showStartPicker
+            )
+            
+            DateField(
+                label: "종료날짜",
+                date: endDate,
+                hasSelected: hasSelectedEndDate,
+                showPicker: $showEndPicker
+            )
             
             Spacer()
             
             Button(action: {
-                
-            }){
-                HStack(alignment: .center, spacing: 8) {
+                path.append(Route.addTag1)
+            }) {
+                HStack {
                     Text("다음")
-                        .font(
-                            Font.custom("Pretendard", size: 17)
-                                .weight(.bold)
-                        )
-                        .foregroundColor(Color.white)
+                        .font(Font.custom("Pretendard", size: 15).weight(.bold))
+                        .foregroundColor(.white)
                 }
-                .padding(.horizontal, 144)
-                .padding(.vertical, 8)
-                .frame(width: 320, alignment: .center)
-                .background(Color(red: 0.04, green: 0.61, blue: 0.61))
+                .frame(width: 353, height: 68)
+                .background(isButtonActive ? Color(red: 1, green: 0.6, blue: 0.46) : Color(red: 0.76, green: 0.76, blue: 0.76)
+                )
                 .cornerRadius(16)
-                .shadow(color: Color.black.opacity(0.08), radius: 4, x: 0, y: 4)
-                .shadow(color: Color.black.opacity(0.05), radius: 1, x: 0, y: 0)
+            }
+            .disabled(!isButtonActive)
+        }
+        .padding(.top, 40)
+        .padding(.bottom, 20)
+        .sheet(isPresented: $showStartPicker) {
+            DatePickerModal(
+                date: $startDate,
+                onConfirm: {
+                    hasSelectedStartDate = true
+                    showStartPicker = false
+                }
+            )
+        }
+        .sheet(isPresented: $showEndPicker) {
+            DatePickerModal(
+                date: $endDate,
+                onConfirm: {
+                    hasSelectedEndDate = true
+                    showEndPicker = false
+                }
+            )
+        }
+        .toolbar(.hidden, for: .tabBar)
+        .navigationTitle("경험 추가")
+        .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    path.removeLast(path.count) // 네비게이션 스택 초기화
+                    tabSelection = 0            // 홈 탭으로 이동
+                }) {
+                    Image(systemName: "xmark")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 14, height: 14)
+                        .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))
+                }
             }
         }
-        .padding(.top, 126)
-        .padding(.bottom, 40)
+    }
+    
+    @ViewBuilder
+    func DateField(label: String, date: Date, hasSelected: Bool, showPicker: Binding<Bool>) -> some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text(label)
+                .font(Font.custom("Pretendard", size: 15))
+                .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
+            
+            HStack {
+                Text(hasSelected ? formatDate(date) : "마감 날짜를 입력해 주세요.")
+                    .font(.custom("Pretendard", size: 13))
+                    .foregroundColor(hasSelected ? Color(red: 0.27, green: 0.3, blue: 0.33) : Color(red: 0.71, green: 0.73, blue: 0.74))
+                
+                Spacer()
+                
+                Button {
+                    showPicker.wrappedValue.toggle()
+                } label: {
+                    Image("calendar")
+                        .resizable()
+                        .scaledToFit()
+                        .frame(width: 24, height: 24)
+                }
+            }
+            .padding(.horizontal, 20)
+            .frame(width: 353, height: 62)
+            .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
+            .cornerRadius(12)
+        }
+    }
+}
+
+struct DatePickerModal: View {
+    @Binding var date: Date
+    var onConfirm: () -> Void
+
+    var body: some View {
+        VStack {
+            DatePicker("", selection: $date, displayedComponents: [.date])
+                .environment(\.locale, Locale(identifier: "ko_KR"))
+                .datePickerStyle(.wheel)
+                .labelsHidden()
+                .padding()
+
+            Button("완료") {
+                onConfirm()
+            }
+            .font(.custom("Pretendard", size: 15))
+            .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
+            .padding(.bottom, 20)
+        }
+        .presentationDetents([.height(300)])
     }
 }
 
 #Preview {
-    AddExperienceView()
+    AddExperienceView(path: .constant(NavigationPath()), tabSelection: .constant(0))
 }
