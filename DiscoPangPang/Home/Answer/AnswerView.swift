@@ -18,12 +18,12 @@ struct AnswerView: View {
                 
                 QuestionStepCell()
                 
-                QuestionCell()
+                QuestionCell(selectedIndex: .constant(0))
                     .padding(.bottom, 16)
                 
-                ExplainCell()
+                ExplainCell(selectedIndex: .constant(0))
                 
-                AnswerCell()
+                AnswerCell(selectedIndex: .constant(0))
                 
                 Spacer()
             }
