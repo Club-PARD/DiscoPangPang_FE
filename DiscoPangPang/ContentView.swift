@@ -15,18 +15,31 @@ enum Route: Hashable {
 }
 
 struct ContentView: View {
+    
     @State private var tabSelection = 0
     @State private var path = NavigationPath()
+    @State private var navigationPath = NavigationPath()
     
     var body: some View {
         TabView(selection: $tabSelection) {
-            HomeView()
-                .tabItem {
-                    Image(tabSelection == 0 ? "Home_" : "Home")
-                    Text("홈")
-                }.tag(0)
+            NavigationStack(path: $navigationPath) {
+                HomeView(navigationPath: $navigationPath)
+                    
+                    .navigationDestination(for: String.self) { value in
+                    switch value {
+                    case "AnswerView":
+                        AnswerView()
+                    default:
+                        Text("Invalid Page")
+                    }
+                }
+            }
+            .tabItem {
+                Image(tabSelection == 0 ? "Home_" : "Home")
+                Text("홈")
+            }.tag(0)
             
-            NavigationStack{
+            NavigationStack {
                 HistoryView()
             }
                 .tabItem {

@@ -35,6 +35,7 @@ struct AnswerView: View {
             }
             .padding()
         }
+        .navigationBarBackButtonHidden(true)
     }
 }
 

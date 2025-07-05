@@ -8,7 +8,9 @@
 import SwiftUI
 
 struct RecordCell: View {
+    
     @State private var isShowModal = false
+    @Binding var navigationPath: NavigationPath
     
     let today = Date()
     let record: RecordDataModel
@@ -36,86 +38,99 @@ struct RecordCell: View {
     
     var body: some View {
         
-        VStack(alignment: .trailing, spacing: 16) {
-            HStack(alignment: .center) {
-                Text("\(record.dueDate)")
-                    .font(Font.custom("Pretendard", size: 13))
-                    .foregroundColor(Color(red: 0.53, green: 0.56, blue: 0.59))
-                
-                Spacer()
-                
-                Button(action: {
-                    print("버튼 눌림")
-                    isShowModal = true
-                }){
-                    Image("more")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 24, height: 24)
-                }
-            } //HStack
-            
-            VStack(alignment: .leading, spacing: 8) {
-                Text("\(record.title)")
-                    .font(
-                        Font.custom("Pretendard", size: 19)
-                            .weight(.semibold)
-                    )
-                    .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
-                
-                HStack(alignment: .top, spacing: 4) {
-                    ForEach(0..<record.tag.count, id: \.self){ index in
-                        let tagName = record.tag[index]
-                        let categoryName = category(for: tagName) ?? "기본"
-                        let textColor = categoryTextColors[categoryName] ?? .gray
-                        let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
-                        
-                        Text(tagName)
-                            .font(
-                                Font.custom("Pretendard", size: 11)
-                                    .weight(.semibold)
-                            )
-                            .kerning(0.4)
-                            .foregroundColor(textColor)
-                            .padding(.vertical, 5)
-                            .padding(.horizontal, 8)
-                            .background(bgColor)
-                            .cornerRadius(8)
+//        NavigationStack(path: $answerPath) {
+            VStack(alignment: .trailing, spacing: 16) {
+                HStack(alignment: .center) {
+                    Text("\(record.dueDate)")
+                        .font(Font.custom("Pretendard", size: 13))
+                        .foregroundColor(Color(red: 0.53, green: 0.56, blue: 0.59))
+                    
+                    Spacer()
+                    
+                    Button(action: {
+                        print("버튼 눌림")
+                        isShowModal = true
+                    }){
+                        Image("more")
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 24, height: 24)
                     }
                 } //HStack
-            } //VStack
-            .frame(maxWidth: .infinity, alignment: .topLeading)
-            
-            ZStack {
-                Rectangle()
-                    .foregroundColor(.clear)
-                    .frame(width: 95, height: 42)
-                    .background(Color(red: 1, green: 0.6, blue: 0.46))
-                    .cornerRadius(12)
                 
-                Text("경험 기록하기")
-                    .font(
-                        Font.custom("Pretendard", size: 12)
-                            .weight(.bold)
-                    )
-                    .foregroundColor(Color.white)
-                    .padding(8)
-            } //ZStack
-        } //VStack
-        .padding(15)
-        .foregroundColor(.clear)
-        .frame(width: 353, height: 189)
-        .background(Color.white)
-        .cornerRadius(16)
-        .shadow(color: .black.opacity(0.03), radius: 5, x: 0, y: 4)
-        .sheet(isPresented: $isShowModal) {
-            ModalView {
-                isShowModal = false
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("\(record.title)")
+                        .font(
+                            Font.custom("Pretendard", size: 19)
+                                .weight(.semibold)
+                        )
+                        .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
+                    
+                    HStack(alignment: .top, spacing: 4) {
+                        ForEach(0..<record.tag.count, id: \.self){ index in
+                            let tagName = record.tag[index]
+                            let categoryName = category(for: tagName) ?? "기본"
+                            let textColor = categoryTextColors[categoryName] ?? .gray
+                            let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
+                            
+                            Text(tagName)
+                                .font(
+                                    Font.custom("Pretendard", size: 11)
+                                        .weight(.semibold)
+                                )
+                                .kerning(0.4)
+                                .foregroundColor(textColor)
+                                .padding(.vertical, 5)
+                                .padding(.horizontal, 8)
+                                .background(bgColor)
+                                .cornerRadius(8)
+                        }
+                    } //HStack
+                } //VStack
+                .frame(maxWidth: .infinity, alignment: .topLeading)
+                
+                ZStack {
+                    Rectangle()
+                        .foregroundColor(.clear)
+                        .frame(width: 95, height: 42)
+                        .background(Color(red: 1, green: 0.6, blue: 0.46))
+                        .cornerRadius(12)
+                    
+                    
+                    Button(action: {
+                        navigationPath.append("AnswerView")
+                    }, label: {
+                        Text("경험 기록하기")
+                            .font(
+                                Font.custom("Pretendard", size: 12)
+                                    .weight(.bold)
+                            )
+                            .foregroundColor(Color.white)
+                            .padding(8)
+                    })
+                    
+                } //ZStack
+            } //VStack
+            .padding(15)
+            .foregroundColor(.clear)
+            .frame(width: 353, height: 189)
+            .background(Color.white)
+            .cornerRadius(16)
+            .shadow(color: .black.opacity(0.03), radius: 5, x: 0, y: 4)
+            .sheet(isPresented: $isShowModal) {
+                ModalView {
+                    isShowModal = false
+                }
+                .presentationDetents([.height(136)])
+                .presentationDragIndicator(.hidden)
             }
-            .presentationDetents([.height(136)])
-            .presentationDragIndicator(.hidden)
-        }
-        
+//            .navigationDestination(for: String.self) { value in
+//                switch value {
+//                case "AnswerView": AnswerView(answerPath: $answerPath)
+//                default: Text("Invalid Page")
+//                }
+//            }
+//        }
     }
     
     func category(for tag: String) -> String? {
@@ -128,6 +143,6 @@ struct RecordCell: View {
     }
 }
 
-#Preview {
-    RecordCell(record: mockRecordData)
-}
+//#Preview {
+//    RecordCell(record: mockRecordData)
+//}

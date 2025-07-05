@@ -8,6 +8,9 @@
 import SwiftUI
 
 struct HomeView: View {
+    
+    @Binding var navigationPath: NavigationPath
+    
     var body: some View {
         ScrollView {
             LazyVStack(alignment: .leading, spacing: 16) {
@@ -39,10 +42,11 @@ struct HomeView: View {
                         .resizable()
                         .scaledToFit()
                         .frame(width: 140, height: 150)
-                }
+                }  // HStack
                 
-                RecordCell(record: mockRecordData)
-            }
+                RecordCell(navigationPath: $navigationPath, record: mockRecordData)
+                
+            }  // LazyVStack
             .padding(.leading, 20)
         }
         .background(Color(red: 0.97, green: 0.98, blue: 0.98))
@@ -50,6 +54,6 @@ struct HomeView: View {
 }
 
 
-#Preview {
-    HomeView()
-}
+//#Preview {
+//    HomeView(navigationPath: $navigationPath, record: MockRecordData)
+//}
