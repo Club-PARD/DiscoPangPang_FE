@@ -15,7 +15,7 @@ struct AnswerButton: View {
             HStack {
                 Spacer()
                 
-                Text("저장하기")
+                Text("다음 질문")
                     .font(.system(size: 17, weight: .bold))
                     .foregroundColor(.white)
                 
