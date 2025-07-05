@@ -19,8 +19,8 @@ struct CustomTextEdit: ViewModifier {
                 if insightText.isEmpty {
                     Text(placeholder)
                         .lineSpacing(10)
-                        .padding(EdgeInsets(top: 12, leading: 16, bottom: 12, trailing: 16))
-                        .font(.system(size: 11))
+                        .padding(EdgeInsets(top: 22, leading: 20, bottom: 20, trailing: 16))
+                        .font(.system(size: 13))
                         .foregroundColor(Color(red: 138/255, green: 148/255, blue: 158/255, opacity: 1))
                 }
             }
@@ -28,10 +28,10 @@ struct CustomTextEdit: ViewModifier {
             .background(Color(red: 230/255, green: 232/255, blue: 234/255, opacity: 1))
             .clipShape(RoundedRectangle(cornerRadius: 8))
             .scrollContentBackground(.hidden)
-            .font(.system(size: 11))
+            .font(.system(size: 13))
             .overlay(alignment: .bottomTrailing) {
                 Text("\(insightText.count) / 200")
-                    .font(.system(size: 12))
+                    .font(.system(size: 13))
                     .foregroundColor(Color(UIColor.systemGray2))
                     .padding(.trailing, 15)
                     .padding(.bottom, 15)

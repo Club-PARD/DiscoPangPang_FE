@@ -14,16 +14,17 @@ struct AnswerButton: View {
         }, label: {
             HStack {
                 Spacer()
+                
                 Text("저장하기")
                     .font(.system(size: 17, weight: .bold))
                     .foregroundColor(.white)
+                
                 Spacer()
             }
-            .padding(8)
+            .frame(height: 68)
             .background(
-                RoundedRectangle(cornerRadius: 8)
-                    .fill(Color(red: 11/255, green: 155/255, blue: 155/255, opacity: 1))
-                    .frame(height: 42)
+                RoundedRectangle(cornerRadius: 16)
+                    .fill(Color(red: 254/255, green: 153/255, blue: 117/255, opacity: 1))
             )
         })
     }
