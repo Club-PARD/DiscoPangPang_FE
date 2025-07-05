@@ -26,7 +26,9 @@ struct ContentView: View {
                     Text("홈")
                 }.tag(0)
             
-            HistoryView()
+            NavigationStack{
+                HistoryView()
+            }
                 .tabItem {
                     Image(tabSelection == 1 ? "History_" : "History")
                     Text("히스토리")
