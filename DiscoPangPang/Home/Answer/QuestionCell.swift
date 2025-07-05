@@ -9,22 +9,23 @@ import SwiftUI
 
 struct QuestionCell: View {
     
-    @State var question: String = ""
+    @Binding var selectedIndex: Int
     
-//    var type: QuestionType = .question1
+    let questionTypes: [QuestionType] = [.question1, .question2, .question3, .question4, .question5]
     
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
-            Text("01")
+            Text(questionTypes[selectedIndex].rawValue)
                 .font(.system(size: 20))
                 .foregroundColor(Color(red: 254/255, green: 153/255, blue: 117/255, opacity: 1))
             
             VStack(alignment: .leading, spacing: 4) {
-                Text("이 활동은 어떤 상황에서")
-                Text("시작하게 되었나요?")
+                Text(questionTypes[selectedIndex].typeValues[2])
+                Text(questionTypes[selectedIndex].typeValues[3])
             }
             .font(.system(size: 20))
             .foregroundColor(Color(red: 70/255, green: 76/255, blue: 83/255, opacity: 1))
+            .animation(.easeInOut, value: selectedIndex)
         }
         .bold()
     }
@@ -32,5 +33,11 @@ struct QuestionCell: View {
 
 
 #Preview {
-    QuestionCell()
+    VStack(spacing: 20) {
+        QuestionCell(selectedIndex: .constant(0))
+        QuestionCell(selectedIndex: .constant(1))
+        QuestionCell(selectedIndex: .constant(2))
+        QuestionCell(selectedIndex: .constant(3))
+        QuestionCell(selectedIndex: .constant(4))
+    }
 }

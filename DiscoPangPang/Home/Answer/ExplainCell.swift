@@ -8,13 +8,24 @@
 import SwiftUI
 
 struct ExplainCell: View {
+    
+    @Binding var selectedIndex: Int
+    
+    let questionTypes: [QuestionType] = [.question1, .question2, .question3, .question4, .question5]
+    
     var body: some View {
-        Text("💡 언제, 어디서, 어떤 목적과 배경으로 시작됐는지를 적어주세요!")
+        Text(questionTypes[selectedIndex].typeValues[4])
             .font(.system(size: 11))
             .foregroundColor(Color(red: 146/255, green: 146/255, blue: 146/255, opacity: 1))
     }
 }
 
 #Preview {
-    ExplainCell()
+    VStack {
+        ExplainCell(selectedIndex: .constant(0))
+        ExplainCell(selectedIndex: .constant(1))
+        ExplainCell(selectedIndex: .constant(2))
+        ExplainCell(selectedIndex: .constant(3))
+        ExplainCell(selectedIndex: .constant(4))
+    }
 }

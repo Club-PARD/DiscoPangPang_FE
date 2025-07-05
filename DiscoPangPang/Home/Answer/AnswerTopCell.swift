@@ -24,7 +24,7 @@ struct AnswerTopCell: View {
                 Spacer()
                 
                 Button(action: {
-                    
+                    // 서버 연결 (POST, UPDATE)
                 }, label: {
                     Text("임시저장")
                         .font(.system(size: 12))
@@ -32,7 +32,7 @@ struct AnswerTopCell: View {
                 })
                 .tint(.black)
             }  // HStack
-        }
+        }  // ZStack
     }
 }
 
