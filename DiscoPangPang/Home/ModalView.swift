@@ -38,7 +38,7 @@ struct ModalView: View {
                     print("경험 수정하기 버튼 클릭")
                 }, label: {
                     HStack(spacing: 24) {
-                        Image("close")
+                        Image("Close")
                             .resizable()
                             .scaledToFit()
                             .frame(width: 24, height: 24)
