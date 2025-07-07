@@ -74,8 +74,8 @@ struct HistorySTView: View {
                     presentationMode.wrappedValue.dismiss() // 뒤로가기 동작
                 }) {
                     Image(systemName: "chevron.left")  // 커스텀 아이콘
-                        .foregroundColor(.black)       // 아이콘 색상 조절
-                        .imageScale(.large)
+                        .foregroundColor(Color(red: 0.35, green: 0.38, blue: 0.42))       // 아이콘 색상 조절
+                        .frame(width: 9, height: 15)
                 }
             }
         }
