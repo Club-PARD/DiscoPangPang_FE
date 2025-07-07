@@ -14,7 +14,7 @@ struct SplashView: View {
                 .edgesIgnoringSafeArea(.all)
                     
             VStack {
-                Image("GIBOON")
+                Image("GIBOON_Splash")
                     .resizable()
                     .scaledToFit()
                     .frame(width: 180, height: 72)
