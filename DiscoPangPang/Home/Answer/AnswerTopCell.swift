@@ -8,13 +8,19 @@
 import SwiftUI
 
 struct AnswerTopCell: View {
+    
+    @Binding var isShowCancelAlert: Bool
+    @Binding var isShowTempsaveAlert: Bool
+    @Binding var navigationPath: NavigationPath
+    
     var body: some View {
         ZStack {
             Text("PARD 5기 롱커톤")
             
             HStack {
                 Button(action: {
-                    
+                    self.isShowCancelAlert.toggle()
+                    print(isShowCancelAlert)
                 }, label: {
                     Image(systemName: "chevron.backward")
                         .font(.system(size: 12))
@@ -24,6 +30,7 @@ struct AnswerTopCell: View {
                 Spacer()
                 
                 Button(action: {
+                    self.isShowTempsaveAlert.toggle()
                     // 서버 연결 (POST, UPDATE)
                 }, label: {
                     Text("임시저장")
@@ -36,6 +43,6 @@ struct AnswerTopCell: View {
     }
 }
 
-#Preview {
-    AnswerTopCell()
-}
+//#Preview {
+//    AnswerTopCell(navigationPath: $navigationPath)
+//}

@@ -9,7 +9,7 @@ import SwiftUI
 
 struct QuestionStepCell: View {
     
-    @State private var selectedIndex: Int = 0
+    @Binding var selectedIndex: Int
     
     let questionTypes: [QuestionType] = [.question1, .question2, .question3, .question4, .question5]
     
@@ -22,6 +22,7 @@ struct QuestionStepCell: View {
                 
                 Button(action: {
                     selectedIndex = index
+                    print(selectedIndex)
                     print("선택된 QuestionType: \(type)")
                     print("typeValues: \(type.typeValues)")
                 }) {
@@ -56,6 +57,6 @@ struct QuestionStepCell: View {
 }
 
 
-#Preview {
-    QuestionStepCell()
-}
+//#Preview {
+//    QuestionStepCell(selectedIndex: $selectedIndex)
+//}

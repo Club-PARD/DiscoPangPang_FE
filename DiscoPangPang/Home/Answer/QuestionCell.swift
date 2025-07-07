@@ -23,7 +23,7 @@ struct QuestionCell: View {
                 Text(questionTypes[selectedIndex].typeValues[2])
                 Text(questionTypes[selectedIndex].typeValues[3])
             }
-            .font(.system(size: 20))
+            .font(.system(size: 17, weight: .semibold))
             .foregroundColor(Color(red: 70/255, green: 76/255, blue: 83/255, opacity: 1))
             .animation(.easeInOut, value: selectedIndex)
         }
