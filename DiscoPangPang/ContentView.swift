@@ -69,17 +69,19 @@ struct ContentView: View {
                     Text("경험추가")
                 }.tag(2)
             
-            AnalysisView()
+            NavigationStack {
+                AnalysisView()
+            }
                 .tabItem {
                     Image(tabSelection == 3 ? "Analysis_" : "Analysis")
                     Text("분석")
                 }.tag(3)
             
-            MyView()
-                .tabItem {
-                    Image(tabSelection == 4 ? "My_" : "My")
-                    Text("마이페이지")
-                }.tag(4)
+//            MyView()
+//                .tabItem {
+//                    Image(tabSelection == 4 ? "My_" : "My")
+//                    Text("마이페이지")
+//                }.tag(4)
         }
         .tint(Color(red: 1, green: 0.5, blue: 0.32))
     }

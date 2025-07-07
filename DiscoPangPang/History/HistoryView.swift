@@ -64,7 +64,7 @@ struct HistoryView: View {
                 }
 
             }
-            .padding(.top, 32)
+            .padding(.vertical, 32)
             .padding(.horizontal, 20)
         }
         .background(Color(red: 0.96, green: 0.96, blue: 0.96))
