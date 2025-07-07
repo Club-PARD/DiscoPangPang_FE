@@ -9,7 +9,6 @@ import SwiftUI
 
 struct AddExperienceView: View {
     @State private var title: String = ""
-    
     @State private var startDate = Date()
     @State private var endDate = Date()
     @State private var showStartPicker = false
@@ -124,27 +123,26 @@ struct AddExperienceView: View {
             Text(label)
                 .font(Font.custom("Pretendard", size: 15))
                 .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
-            
-            HStack {
-                Text(hasSelected ? formatDate(date) : "마감 날짜를 입력해 주세요.")
-                    .font(.custom("Pretendard", size: 13))
-                    .foregroundColor(hasSelected ? Color(red: 0.27, green: 0.3, blue: 0.33) : Color(red: 0.71, green: 0.73, blue: 0.74))
-                
-                Spacer()
-                
-                Button {
-                    showPicker.wrappedValue.toggle()
-                } label: {
-                    Image("calendar")
+            Button {
+                showPicker.wrappedValue.toggle()
+            } label: {
+                HStack {
+                    Text(hasSelected ? formatDate(date) : "마감 날짜를 입력해 주세요.")
+                        .font(.custom("Pretendard", size: 13))
+                        .foregroundColor(hasSelected ? Color(red: 0.27, green: 0.3, blue: 0.33) : Color(red: 0.71, green: 0.73, blue: 0.74))
+                    
+                    Spacer()
+                    
+                    Image("Calendar")
                         .resizable()
                         .scaledToFit()
                         .frame(width: 24, height: 24)
                 }
+                .padding(.horizontal, 20)
+                .frame(width: 353, height: 62)
+                .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
+                .cornerRadius(12)
             }
-            .padding(.horizontal, 20)
-            .frame(width: 353, height: 62)
-            .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
-            .cornerRadius(12)
         }
     }
 }
