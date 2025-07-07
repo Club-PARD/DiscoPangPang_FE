@@ -19,6 +19,8 @@ struct ContentView: View {
     @State private var tabSelection = 0
     @State private var path = NavigationPath()
     @State private var navigationPath = NavigationPath()
+    @Binding var answerText: [String]
+    @Binding var selectedIndex: Int
     
     var body: some View {
         TabView(selection: $tabSelection) {
@@ -28,7 +30,7 @@ struct ContentView: View {
                     .navigationDestination(for: String.self) { value in
                     switch value {
                     case "AnswerView":
-                        AnswerView()
+                        AnswerView(navigationPath: $navigationPath, answerText: $answerText, selectedIndex: $selectedIndex)
                     default:
                         Text("Invalid Page")
                     }
@@ -88,6 +90,6 @@ struct ContentView: View {
 }
 
 
-#Preview {
-    ContentView()
-}
+//#Preview {
+//    ContentView()
+//}

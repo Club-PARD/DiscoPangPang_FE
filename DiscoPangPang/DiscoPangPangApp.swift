@@ -9,6 +9,10 @@ import SwiftUI
 
 @main
 struct DiscoPangPangApp: App {
+//    @State private var answerText: String = ""
+    @State var answerText: [String] = Array(repeating: "", count: 5)
+    @State private var selectedIndex: Int = 0
+    
     init() {
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground() // 투명한 배경 설정
@@ -25,7 +29,7 @@ struct DiscoPangPangApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView(answerText: $answerText, selectedIndex: $selectedIndex)
         }
     }
 }
