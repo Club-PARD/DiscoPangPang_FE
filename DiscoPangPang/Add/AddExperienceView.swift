@@ -44,6 +44,7 @@ struct AddExperienceView: View {
                     .frame(width: 353, height: 62)
                     .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
                     .cornerRadius(12)
+                    .contentShape(Rectangle())
             }
             .frame(width: 329, alignment: .topLeading)
             
@@ -64,6 +65,7 @@ struct AddExperienceView: View {
             Spacer()
             
             Button(action: {
+                scheduleTestNotification(title: title) //테스트용
                 path.append(Route.addTag1)
             }) {
                 HStack {
