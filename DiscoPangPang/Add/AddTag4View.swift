@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddTag4View: View {
+    @EnvironmentObject var experienceData: ExperienceData
     @Binding var path: NavigationPath
     @Binding var tabSelection: Int
     @State private var selectedTagTitle: String? = nil
@@ -83,7 +84,9 @@ struct AddTag4View: View {
 //                        if let deadline = experienceData.endDate {
 //                            scheduleDeadlineNotification(deadline: deadline, title: experienceData.title)
 //                            }
+                        experienceData.tags.labels["전략적사고"] = selectedTagTitle
                         
+                        experienceData.reset()
                         path.removeLast(path.count)
                         tabSelection = 0 
                     }) {
@@ -101,7 +104,7 @@ struct AddTag4View: View {
                     .disabled(!isButtonActive)
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                .padding(.vertical, 10)
                 .background(Color.white)
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
@@ -116,6 +119,7 @@ struct AddTag4View: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+                    experienceData.reset()
                     path.removeLast(path.count) // 네비게이션 스택 초기화
                     tabSelection = 0            // 홈 탭으로 이동
                 }) {
@@ -132,4 +136,5 @@ struct AddTag4View: View {
 
 #Preview {
     AddTag4View(path: .constant(NavigationPath()), tabSelection: .constant(0))
+        .environmentObject(ExperienceData())
 }
