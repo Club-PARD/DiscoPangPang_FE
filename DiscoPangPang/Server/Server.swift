@@ -16,6 +16,51 @@ struct UserModel: Codable, Hashable {
     let part: String
 }
 
+struct ProjectModel: Codable, Hashable, Identifiable {
+    var id: UUID
+    let projectName: String
+    let startDate: Date
+    let endDate: Date
+}
+
+struct TagModel: Codable, Hashable {
+    var labels: [String:String]
+}
+
+struct ProjectData: Codable, Hashable {
+    var project: ProjectModel
+    var tag: TagModel
+}
+
+struct STARLModel: Codable, Hashable {
+    let s: String
+    let t: String
+    let a: String
+    let r: String
+    let l: String
+}
+
+class ExperienceData: ObservableObject {
+    @Published var project: ProjectModel?
+    @Published var tags: TagModel = TagModel(labels: [:])
+
+    @Published var title: String = ""
+    @Published var startDate: Date = Date()
+    @Published var endDate: Date = Date()
+    @Published var hasSelectedStartDate: Bool = false
+    @Published var hasSelectedEndDate: Bool = false
+    
+    func reset() {
+        project = nil
+        tags = TagModel(labels: [:])
+        title = ""
+        startDate = Date()
+        endDate = Date()
+        hasSelectedStartDate = false
+        hasSelectedEndDate = false
+    }
+}
+
 // 서버 주소
 enum BaseURL: String {
     case baseUrl = "  /*[ 주소 ]*/ "

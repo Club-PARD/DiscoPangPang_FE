@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct AddTag1View: View {
+    @EnvironmentObject var experienceData: ExperienceData
     @Binding var path: NavigationPath
     @Binding var tabSelection: Int
     @State private var selectedTagTitle: String? = nil
@@ -80,6 +81,7 @@ struct AddTag1View: View {
                     }
                     
                     Button(action: {
+                        experienceData.tags.labels["실행"] = selectedTagTitle
                         path.append(Route.addTag2)
                     }) {
                         Text("다음")
@@ -96,7 +98,7 @@ struct AddTag1View: View {
                     .disabled(!isButtonActive)
                 }
                 .padding(.horizontal, 20)
-                .padding(.bottom, 20)
+                .padding(.vertical, 10)
                 .background(Color.white)
             }
             .frame(maxHeight: .infinity, alignment: .bottom)
@@ -111,6 +113,7 @@ struct AddTag1View: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+                    experienceData.reset()
                     path.removeLast(path.count) // 네비게이션 스택 초기화
                     tabSelection = 0            // 홈 탭으로 이동
                 }) {
@@ -128,4 +131,5 @@ struct AddTag1View: View {
 
 #Preview {
     AddTag1View(path: .constant(NavigationPath()), tabSelection: .constant(0))
+        .environmentObject(ExperienceData())
 }

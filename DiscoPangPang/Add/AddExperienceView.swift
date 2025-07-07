@@ -8,19 +8,22 @@
 import SwiftUI
 
 struct AddExperienceView: View {
-    @State private var title: String = ""
-    @State private var startDate = Date()
-    @State private var endDate = Date()
+    @EnvironmentObject var experienceData: ExperienceData
+    
     @State private var showStartPicker = false
     @State private var showEndPicker = false
-    @State private var hasSelectedStartDate = false
-    @State private var hasSelectedEndDate = false
     
     @Binding var path: NavigationPath
     @Binding var tabSelection: Int
     
+    var title: Binding<String> { $experienceData.title }
+    var startDate: Binding<Date> { $experienceData.startDate }
+    var endDate: Binding<Date> { $experienceData.endDate }
+    var hasSelectedStartDate: Binding<Bool> { $experienceData.hasSelectedStartDate }
+    var hasSelectedEndDate: Binding<Bool> { $experienceData.hasSelectedEndDate }
+    
     var isButtonActive: Bool {
-        !title.isEmpty && hasSelectedStartDate && hasSelectedEndDate
+        !title.wrappedValue.isEmpty && hasSelectedStartDate.wrappedValue && hasSelectedEndDate.wrappedValue
     }
     
     func formatDate(_ date: Date) -> String {
@@ -37,9 +40,9 @@ struct AddExperienceView: View {
                     .font(Font.custom("Pretendard", size: 15))
                     .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
                             
-                TextField("경험의 제목을 입력해 주세요.", text: $title)
+                TextField("경험의 제목을 입력해 주세요.", text: title)
                     .font(Font.custom("Pretendard", size: 13))
-                    .foregroundColor(title.isEmpty ? Color(red: 0.71, green: 0.73, blue: 0.74) : Color(red: 0.27, green: 0.3, blue: 0.33))
+                    .foregroundColor(title.wrappedValue.isEmpty ? Color(red: 0.71, green: 0.73, blue: 0.74) : Color(red: 0.27, green: 0.3, blue: 0.33))
                     .padding(.horizontal, 20)
                     .frame(width: 353, height: 62)
                     .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
@@ -50,22 +53,28 @@ struct AddExperienceView: View {
             
             DateField(
                 label: "시작날짜",
-                date: startDate,
-                hasSelected: hasSelectedStartDate,
+                date: startDate.wrappedValue,
+                hasSelected: hasSelectedStartDate.wrappedValue,
                 showPicker: $showStartPicker
             )
             
             DateField(
                 label: "종료날짜",
-                date: endDate,
-                hasSelected: hasSelectedEndDate,
+                date: endDate.wrappedValue,
+                hasSelected: hasSelectedEndDate.wrappedValue,
                 showPicker: $showEndPicker
             )
             
             Spacer()
             
             Button(action: {
-                scheduleTestNotification(title: title) //테스트용
+                scheduleTestNotification(title: title.wrappedValue) //테스트용
+                experienceData.project = ProjectModel(
+                    id: UUID(),
+                    projectName: experienceData.title,
+                    startDate: experienceData.startDate,
+                    endDate: experienceData.endDate
+                )
                 path.append(Route.addTag1)
             }) {
                 HStack {
@@ -84,18 +93,18 @@ struct AddExperienceView: View {
         .padding(.bottom, 20)
         .sheet(isPresented: $showStartPicker) {
             DatePickerModal(
-                date: $startDate,
+                date: startDate,
                 onConfirm: {
-                    hasSelectedStartDate = true
+                    hasSelectedStartDate.wrappedValue = true
                     showStartPicker = false
                 }
             )
         }
         .sheet(isPresented: $showEndPicker) {
             DatePickerModal(
-                date: $endDate,
+                date: endDate,
                 onConfirm: {
-                    hasSelectedEndDate = true
+                    hasSelectedEndDate.wrappedValue = true
                     showEndPicker = false
                 }
             )
@@ -106,6 +115,7 @@ struct AddExperienceView: View {
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
+                    experienceData.reset()
                     path.removeLast(path.count) // 네비게이션 스택 초기화
                     tabSelection = 0            // 홈 탭으로 이동
                 }) {

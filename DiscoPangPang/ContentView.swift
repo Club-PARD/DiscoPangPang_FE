@@ -15,7 +15,7 @@ enum Route: Hashable {
 }
 
 struct ContentView: View {
-    
+    @StateObject private var experienceData = ExperienceData()
     @State private var tabSelection = 0
     @State private var path = NavigationPath()
     @State private var navigationPath = NavigationPath()
@@ -66,6 +66,7 @@ struct ContentView: View {
                         }
                     }
             }
+            .environmentObject(experienceData) 
                 .tabItem {
                     Image(tabSelection == 2 ? "Add_" : "Add")
                     Text("경험추가")

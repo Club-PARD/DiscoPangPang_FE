@@ -44,11 +44,11 @@ let strengthTags3: [StrengthTag] = [
     StrengthTag(color: Color(red: 0.97, green: 0.69, blue: 0.63), title: "연결성", description: "모든 것이 서로 연결되어 있따는 믿음을 가지고 있습니다."),
     StrengthTag(color: Color(red: 0.96, green: 0.53, blue: 0.44), title: "성장촉진자", description: "다른 사람의 잠재력을 발견하고 성장하도록 돕는 것을 즐깁니다."),
     StrengthTag(color: Color(red: 0.94, green: 0.37, blue: 0.26), title: "공감", description: "타인의 감정을 깊이 이해하고 느낄 수 있는 능력이 뛰어납니다."),
-    StrengthTag(color: Color(red: 0.54, green: 0.14, blue: 0.06), title: "조화", description: "갈등보다는 합의와 조화를 추구합니다."),
+    StrengthTag(color: Color(red: 0.87, green: 0.2, blue: 0.07), title: "조화", description: "갈등보다는 합의와 조화를 추구합니다."),
     StrengthTag(color: Color(red: 0.74, green: 0.17, blue: 0.06), title: "포용", description: "주변에서 소외된 사람을 끌어들이고 모두를 참여시키고자 합니다."),
-    StrengthTag(color: Color(red: 0.87, green: 0.2, blue: 0.07), title: "개별화", description: "사람마다 고유한 성향을 이해하고 그에 맞는 방식으로 대합니다."),
+    StrengthTag(color: Color(red: 0.54, green: 0.14, blue: 0.06), title: "개별화", description: "사람마다 고유한 성향을 이해하고 그에 맞는 방식으로 대합니다."),
     StrengthTag(color: Color(red: 0.36, green: 0.09, blue: 0.04), title: "긍정", description: "낙천적이고 에너지 넘치며 주변 사람들에게 활력을 줍니다."),
-    StrengthTag(color: Color(red: 0.36, green: 0.09, blue: 0.04), title: "친밀성", description: "깊고 의미 있는 관계를 맺는 것을 중요하게 생각합니다."),
+    StrengthTag(color: Color(red: 0.22, green: 0.05, blue: 0.02), title: "친밀성", description: "깊고 의미 있는 관계를 맺는 것을 중요하게 생각합니다."),
     StrengthTag(color: Color(red: 0.96, green: 0.96, blue: 0.96), title: "선택안함", description: "")
 ]
 
