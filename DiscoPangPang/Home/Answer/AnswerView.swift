@@ -21,8 +21,11 @@ struct AnswerView: View {
             Color(red: 244/255, green: 245/255, blue: 246/255, opacity: 1).ignoresSafeArea(edges: .all)
             
             VStack(alignment: .leading, spacing: 8) {
-                AnswerTopCell(isShowCancelAlert: $isShowCancelAlert, isShowTempsaveAlert: $isShowTempSaveAlert, navigationPath: $navigationPath)
+                AnswerTopCell(isShowCancelAlert: $isShowCancelAlert,
+                              isShowTempsaveAlert: $isShowTempSaveAlert,
+                              navigationPath: $navigationPath)
                     .padding(EdgeInsets(top: 0, leading: -12, bottom: 16, trailing: 0))
+                
                 ScrollView(showsIndicators: false) {
                     VStack(alignment: .leading, spacing: 8) {
                         QuestionStepCell(selectedIndex: $selectedIndex)
@@ -35,6 +38,7 @@ struct AnswerView: View {
                         AnswerCell(AnswerText: $answerText[selectedIndex], selectedIndex: $selectedIndex)
                     }
                 }
+                .scrollDismissesKeyboard(.interactively)
                 
                 Spacer()
             }
