@@ -21,6 +21,7 @@ struct AnswerCell: View {
         TextEditor(text: $AnswerText)
             .customStyleEditor(placeholder: placeholder, userInput: $AnswerText)
             .frame(height: 268)
+            .animation(.easeInOut, value: selectedIndex)
     }
 }
 
