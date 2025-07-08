@@ -31,6 +31,7 @@ struct AnswerTopCell: View {
                 
                 Button(action: {
                     self.isShowTempsaveAlert.toggle()
+                    navigationPath.removeLast()
                     // 서버 연결 (POST, UPDATE)
                 }, label: {
                     Text("임시저장")

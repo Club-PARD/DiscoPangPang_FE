@@ -21,16 +21,17 @@ struct ContentView: View {
     @State private var navigationPath = NavigationPath()
     @Binding var answerText: [String]
     @Binding var selectedIndex: Int
+    @State var isShowTempSaveAlert: Bool = false
     
     var body: some View {
         TabView(selection: $tabSelection) {
             NavigationStack(path: $navigationPath) {
-                HomeView(navigationPath: $navigationPath)
+                HomeView(navigationPath: $navigationPath, isShowTempSaveAlert: $isShowTempSaveAlert)
                     
                     .navigationDestination(for: String.self) { value in
                     switch value {
                     case "AnswerView":
-                        AnswerView(navigationPath: $navigationPath, answerText: $answerText, selectedIndex: $selectedIndex)
+                        AnswerView(isShowTempSaveAlert: $isShowTempSaveAlert, navigationPath: $navigationPath, answerText: $answerText, selectedIndex: $selectedIndex)
                     default:
                         Text("Invalid Page")
                     }

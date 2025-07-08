@@ -10,7 +10,7 @@ import SwiftUI
 struct AnswerView: View {
     
     @State var isShowCancelAlert: Bool = false
-    @State var isShowTempSaveAlert: Bool = false
+    @Binding var isShowTempSaveAlert: Bool
     
     @Binding var navigationPath: NavigationPath
     @Binding var answerText: [String]
@@ -57,16 +57,16 @@ struct AnswerView: View {
                     .padding(.horizontal, 20)
             }
             
-            if isShowTempSaveAlert {
-                TemporarySaveAlert()
-                    .padding(.horizontal, 20)
-                    .offset(y: 225)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            isShowTempSaveAlert = false
-                        }
-                    }
-            }
+//            if isShowTempSaveAlert {
+//                TemporarySaveAlert()
+//                    .padding(.horizontal, 20)
+//                    .offset(y: 225)
+//                    .onAppear {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                            isShowTempSaveAlert = false
+//                        }
+//                    }
+//            }
         }
         .navigationBarBackButtonHidden(true)
     }
