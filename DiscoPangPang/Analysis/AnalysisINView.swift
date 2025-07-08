@@ -28,13 +28,13 @@ struct AnalysisINView: View {
 
             VStack(alignment: .leading) {
                 Text("영향력")
-                    .font(Font.custom("Pretendard", size: 19).weight(.semibold))
+                    .font(.pretendard(.semibold, size: 19))
                     .foregroundColor(Color(red: 0.15, green: 0.45, blue: 0.22))
                     .padding(.top, 21)
                     .padding(.bottom, 7)
 
                 Text("화살표 형태의 삼각형은 방향 제시 및 리더십처럼\n다른 사람을 이끄는 영향력 테마를 의미해요.")
-                    .font(Font.custom("Pretendard", size: 13))
+                    .font(.pretendard(.regular, size: 13))
                     .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
                     .padding(.bottom, 21)
 
@@ -65,7 +65,7 @@ struct AnalysisINView: View {
                                 .padding(.leading, 18)
                             
                             Text(tag.title)
-                                .font(Font.custom("Pretendard", size: 11).weight(.medium))
+                                .font(.pretendard(.medium, size: 11))
                                 .foregroundColor(Color(red: 0.13, green: 0.53, blue: 0.22))
                         }
                         .shadow(color: .black.opacity(0.12), radius: 16 / 2, x: 0, y: 8)

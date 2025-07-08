@@ -34,13 +34,13 @@ struct AnalysisEXView: View {
 
             VStack(alignment: .leading) {
                 Text("실행")
-                    .font(Font.custom("Pretendard", size: 19).weight(.semibold))
+                    .font(.pretendard(.semibold, size: 19))
                     .foregroundColor(Color(red: 0.04, green: 0.42, blue: 0.7))
                     .padding(.top, 21)
                     .padding(.bottom, 7)
 
                 Text("사각형은 4개의 변이 이루는 견고한 구조처럼\n체계적으로 임무를 완수하는 실행 테마를 의미해요.")
-                    .font(Font.custom("Pretendard", size: 13))
+                    .font(.pretendard(.regular, size: 13))
                     .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
                     .padding(.bottom, 21)
 
@@ -65,7 +65,7 @@ struct AnalysisEXView: View {
 
                         VStack {
                             Text(tag.title)
-                                .font(Font.custom("Pretendard", size: 11).weight(.medium))
+                                .font(.pretendard(.medium, size: 11))
                                 .foregroundColor(Color(red: 0.04, green: 0.47, blue: 0.8))
                         }
                         .frame(width: size, height: size)

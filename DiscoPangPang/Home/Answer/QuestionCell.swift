@@ -16,14 +16,14 @@ struct QuestionCell: View {
     var body: some View {
         VStack(alignment: .leading, spacing: 4) {
             Text(questionTypes[selectedIndex].rawValue)
-                .font(.system(size: 20))
+                .font(.pretendard(.bold, size: 20))
                 .foregroundColor(Color(red: 254/255, green: 153/255, blue: 117/255, opacity: 1))
             
             VStack(alignment: .leading, spacing: 4) {
                 Text(questionTypes[selectedIndex].typeValues[2])
                 Text(questionTypes[selectedIndex].typeValues[3])
             }
-            .font(.system(size: 17, weight: .semibold))
+            .font(.pretendard(.semibold, size: 17))
             .foregroundColor(Color(red: 70/255, green: 76/255, blue: 83/255, opacity: 1))
             .animation(.easeInOut, value: selectedIndex)
         }

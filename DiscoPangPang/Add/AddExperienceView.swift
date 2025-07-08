@@ -37,11 +37,11 @@ struct AddExperienceView: View {
         VStack(alignment: .leading, spacing: 45){
             VStack(alignment: .leading, spacing: 8) {
                 Text("제목")
-                    .font(Font.custom("Pretendard", size: 15))
+                    .font(.pretendard(.medium, size: 15))
                     .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
                             
                 TextField("경험의 제목을 입력해 주세요.", text: title)
-                    .font(Font.custom("Pretendard", size: 13))
+                    .font(.pretendard(.regular, size: 13))
                     .foregroundColor(title.wrappedValue.isEmpty ? Color(red: 0.71, green: 0.73, blue: 0.74) : Color(red: 0.27, green: 0.3, blue: 0.33))
                     .padding(.horizontal, 20)
                     .frame(width: 353, height: 62)
@@ -79,7 +79,7 @@ struct AddExperienceView: View {
             }) {
                 HStack {
                     Text("다음")
-                        .font(Font.custom("Pretendard", size: 15).weight(.bold))
+                        .font(.pretendard(.bold, size: 15))
                         .foregroundColor(.white)
                 }
                 .frame(width: 353, height: 68)
@@ -133,14 +133,14 @@ struct AddExperienceView: View {
     func DateField(label: String, date: Date, hasSelected: Bool, showPicker: Binding<Bool>) -> some View {
         VStack(alignment: .leading, spacing: 8) {
             Text(label)
-                .font(Font.custom("Pretendard", size: 15))
+                .font(.pretendard(.medium, size: 15))
                 .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
             Button {
                 showPicker.wrappedValue.toggle()
             } label: {
                 HStack {
                     Text(hasSelected ? formatDate(date) : "마감 날짜를 입력해 주세요.")
-                        .font(.custom("Pretendard", size: 13))
+                        .font(.pretendard(.regular, size: 13))
                         .foregroundColor(hasSelected ? Color(red: 0.27, green: 0.3, blue: 0.33) : Color(red: 0.71, green: 0.73, blue: 0.74))
                     
                     Spacer()
@@ -174,7 +174,7 @@ struct DatePickerModal: View {
             Button("완료") {
                 onConfirm()
             }
-            .font(.custom("Pretendard", size: 15))
+            .font(.pretendard(.bold, size: 15))
             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
             .padding(.bottom, 20)
         }
@@ -184,4 +184,5 @@ struct DatePickerModal: View {
 
 #Preview {
     AddExperienceView(path: .constant(NavigationPath()), tabSelection: .constant(0))
+        .environmentObject(ExperienceData())
 }

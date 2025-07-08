@@ -28,13 +28,13 @@ struct AnalysisSTView: View {
 
             VStack(alignment: .leading) {
                 Text("전략적사고")
-                    .font(Font.custom("Pretendard", size: 19).weight(.semibold))
+                    .font(.pretendard(.semibold, size: 19))
                     .foregroundColor(Color(red: 0.54, green: 0.36, blue: 0))
                     .padding(.top, 21)
                     .padding(.bottom, 7)
 
                 Text("마름모는 인사이트 및 통찰력처럼\n여러 각도에서 문제를 바라보는 전략적사고 테마를 의미해요.")
-                    .font(Font.custom("Pretendard", size: 13))
+                    .font(.pretendard(.regular, size: 13))
                     .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
                     .padding(.bottom, 21)
 
@@ -70,7 +70,7 @@ struct AnalysisSTView: View {
                             .rotationEffect(.degrees(45))
                             
                             Text(tag.title)
-                                .font(Font.custom("Pretendard", size: 11).weight(.medium))
+                                .font(.pretendard(.medium, size: 11))
                                 .foregroundColor(Color(red: 0.62, green: 0.42, blue: 0))
                         }
                         .shadow(color: .black.opacity(0.12), radius: 16 / 2, x: 0, y: 8)

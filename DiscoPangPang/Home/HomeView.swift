@@ -21,21 +21,16 @@ struct HomeView: View {
                         
                         VStack(alignment: .leading, spacing: 8) {
                             Text("준우님,")
-//                                .font(.system(size: 18))
                                 .font(Font.custom("Pretendard", size: 18))
                             
                             Text("오늘의 경험이")
-//                                .font(.system(size: 18))
                                 .font(Font.custom("Pretendard", size: 18))
                             
                             HStack(spacing: 0) {
                                 Text("내일의 강점")
-                                    .font(.system(size: 18, weight: .bold))
-//                                    .font(Font.custom("Pretendard", size: 18))
-//                                    .bold()
+                                    .font(.pretendard(.bold, size: 18))
                                 
                                 Text("이 될 거예요!")
-//                                    .font(.system(size: 18))
                                     .font(Font.custom("Pretendard", size: 18))
                             }
                         }  // VStack
