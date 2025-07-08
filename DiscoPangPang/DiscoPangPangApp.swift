@@ -7,19 +7,22 @@
 
 import SwiftUI
 import UserNotifications
+import AuthenticationServices
+
 
 @main
 struct DiscoPangPangApp: App {
     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
-//    @State private var answerText: String = ""
     
-    @State private var showSplash = true // ✅ Splash 화면 표시 여부
-
     @State var answerText: [String] = Array(repeating: "", count: 5)
     @State private var selectedIndex: Int = 0
     
+    @State private var isLoggedIn: Bool = false          // 로그인 여부
+    @State private var showSplash: Bool = true           // 스플래시 표시 여부
+    @State private var showAppleLogin: Bool = false
+    
     init() {
-        requestNotificationPermission()
+        //        requestNotificationPermission()
         
         let appearance = UITabBarAppearance()
         appearance.configureWithTransparentBackground() // 투명한 배경 설정
@@ -36,22 +39,55 @@ struct DiscoPangPangApp: App {
     
     var body: some Scene {
         WindowGroup {
-            //            ContentView(answerText: $answerText, selectedIndex: $selectedIndex)
-            if showSplash {
-                SplashView()
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-                            // ✅ 2초 후 Splash 사라지고 ContentView로 전환
-                            withAnimation {
-                                showSplash = false
+            ZStack {
+                if showSplash {
+                    SplashView()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                checkAppleLoginStatus()
                             }
                         }
+                } else if isLoggedIn {
+                    ContentView(answerText: $answerText,
+                                selectedIndex: $selectedIndex)
+                } else {
+                    SplashView()
+                        .overlay(
+                            AppleLogIn {
+                                // 로그인 성공 시 처리
+                                isLoggedIn = true
+                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                            }
+                        )
+                }
+            }
+        }
+    }
+    
+    /// ✅ Apple 계정 자동 로그인 체크
+    func checkAppleLoginStatus() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        if let storedUserID = UserDefaults.standard.string(forKey: "appleUserId") {
+            appleIDProvider.getCredentialState(forUserID: storedUserID) { credentialState, error in
+                DispatchQueue.main.async {
+                    switch credentialState {
+                    case .authorized:
+                        print("✅ 자동 로그인 유지됨")
+                        self.isLoggedIn = true
+                    case .revoked, .notFound:
+                        print("⚠️ 자동 로그인 불가 (다시 로그인 필요)")
+                        self.isLoggedIn = false
+                    default:
+                        break
                     }
-            } else {
-                ContentView(
-                    answerText: $answerText,
-                    selectedIndex: $selectedIndex
-                )
+                    self.showSplash = false
+                }
+            }
+        } else {
+            print("🔑 저장된 Apple userId 없음")
+            DispatchQueue.main.async {
+                self.isLoggedIn = false
+                self.showSplash = false
             }
         }
     }
@@ -65,22 +101,37 @@ struct DiscoPangPangApp: App {
             }
         }
     }
-}
-//테스트용
-class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
-    func application(
-        _ application: UIApplication,
-        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
-    ) -> Bool {
-        UNUserNotificationCenter.current().delegate = self
-        return true
+    
+    /// ✅ 자동 로그인 처리
+    func performExistingAccountSetupFlows() {
+        let appleIDProvider = ASAuthorizationAppleIDProvider()
+        let request = appleIDProvider.createRequest()
+        let controller = ASAuthorizationController(authorizationRequests: [request])
+        
+        controller.delegate = AppleSignInCoordinator { success in
+            DispatchQueue.main.async {
+                self.isLoggedIn = success
+                self.showSplash = false
+            }
+        }
+        controller.performRequests()
     }
-
-    // 포그라운드에서도 알림 띄우기
-    func userNotificationCenter(_ center: UNUserNotificationCenter,
-                                 willPresent notification: UNNotification,
-                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
-        completionHandler([.banner, .sound]) // ⬅️ 여기 중요
+    
+    // 테스트용
+    class AppDelegate: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate {
+        func application(
+            _ application: UIApplication,
+            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey : Any]? = nil
+        ) -> Bool {
+            UNUserNotificationCenter.current().delegate = self
+            return true
+        }
+        
+        // 포그라운드에서도 알림 띄우기
+        func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                    willPresent notification: UNNotification,
+                                    withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+            completionHandler([.banner, .sound])
+        }
     }
 }
-
