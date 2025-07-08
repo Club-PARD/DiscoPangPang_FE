@@ -97,10 +97,17 @@ struct AnalysisRFView: View {
                 Button(action: {
                     presentationMode.wrappedValue.dismiss() // 뒤로가기 동작
                 }) {
-                    Image(systemName: "chevron.left")  // 커스텀 아이콘
-                        .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))       // 아이콘 색상 조절
-                        .frame(width: 9, height: 15)
+                    ZStack {
+                        Image(systemName: "chevron.left")  // 커스텀 아이콘
+                            .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))       // 아이콘 색상 조절
+                            .font(.system(size: 16))
+                        
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.clear)
+                    }
                 }
+                .padding(.leading, -8)
             }
         }
     }
