@@ -22,9 +22,15 @@ struct AnswerTopCell: View {
                     self.isShowCancelAlert.toggle()
                     print(isShowCancelAlert)
                 }, label: {
-                    Image(systemName: "chevron.backward")
-                        .font(.system(size: 12))
-                        .foregroundColor(Color(red: 188/255, green: 188/255, blue: 188/255, opacity: 1))
+                    ZStack {
+                        Image(systemName: "chevron.backward")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 188/255, green: 188/255, blue: 188/255, opacity: 1))
+                        
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 40, height: 40)
+                            .foregroundColor(.clear)
+                    }
                 })
                 
                 Spacer()

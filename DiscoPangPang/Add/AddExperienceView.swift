@@ -119,12 +119,17 @@ struct AddExperienceView: View {
                     path.removeLast(path.count) // 네비게이션 스택 초기화
                     tabSelection = 0            // 홈 탭으로 이동
                 }) {
-                    Image(systemName: "xmark")
-                        .resizable()
-                        .scaledToFit()
-                        .frame(width: 14, height: 14)
-                        .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))
+                    ZStack {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 0.74, green: 0.74, blue: 0.74))
+                        
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.clear)
+                    }
                 }
+                .padding(.trailing, 4)
             }
         }
     }
