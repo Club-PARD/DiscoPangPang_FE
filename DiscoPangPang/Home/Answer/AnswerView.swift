@@ -23,15 +23,18 @@ struct AnswerView: View {
             VStack(alignment: .leading, spacing: 8) {
                 AnswerTopCell(isShowCancelAlert: $isShowCancelAlert, isShowTempsaveAlert: $isShowTempSaveAlert, navigationPath: $navigationPath)
                     .padding(EdgeInsets(top: 0, leading: -12, bottom: 16, trailing: 0))
-                
-                QuestionStepCell(selectedIndex: $selectedIndex)
-                
-                QuestionCell(selectedIndex: $selectedIndex)
-                    .padding(.bottom, 16)
-                
-                ExplainCell(selectedIndex: $selectedIndex)
-                
-                AnswerCell(AnswerText: $answerText[selectedIndex], selectedIndex: $selectedIndex)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        QuestionStepCell(selectedIndex: $selectedIndex)
+                        
+                        QuestionCell(selectedIndex: $selectedIndex)
+                            .padding(.bottom, 16)
+                        
+                        ExplainCell(selectedIndex: $selectedIndex)
+                        
+                        AnswerCell(AnswerText: $answerText[selectedIndex], selectedIndex: $selectedIndex)
+                    }
+                }
                 
                 Spacer()
             }
