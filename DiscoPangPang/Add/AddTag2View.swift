@@ -22,12 +22,12 @@ struct AddTag2View: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("영향력테마")
-                        .font(.custom("Pretendard", size: 15).weight(.semibold))
+                        .font(.pretendard(.semibold, size: 15))
                         .foregroundColor(Color(red: 0.49, green: 0.78, blue: 0.56))
                         .padding(.bottom, 2)
                     
                     Text("사람들을 이끌고 설득하는 능력이 강한 테마")
-                        .font(.custom("Pretendard", size: 13))
+                        .font(.pretendard(.regular, size: 13))
                         .foregroundColor(Color(red: 0.71, green: 0.73, blue: 0.74))
                         .padding(.bottom, 40)
                     
@@ -43,11 +43,11 @@ struct AddTag2View: View {
                                             .foregroundColor(tag.color)
                                         
                                         Text(tag.title)
-                                            .font(.custom("Pretendard", size: 13).weight(.semibold))
+                                            .font(.pretendard(.semibold, size: 13))
                                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                                         
                                         Text(tag.description)
-                                            .font(.custom("Pretendard", size: 10).weight(.medium))
+                                            .font(.pretendard(.medium, size: 10))
                                             .foregroundColor(Color(red: 0.69, green: 0.72, blue: 0.75))
                                     }
                                     .padding(.vertical, 16)
@@ -73,7 +73,7 @@ struct AddTag2View: View {
                         path.removeLast()
                     }) {
                         Text("이전")
-                            .font(.custom("Pretendard", size: 15).weight(.bold))
+                            .font(.pretendard(.bold, size: 15))
                             .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
                             .frame(maxWidth: .infinity, maxHeight: 68)
                             .background(Color(red: 0.93, green: 0.92, blue: 0.93))
@@ -85,7 +85,7 @@ struct AddTag2View: View {
                         path.append(Route.addTag3)
                     }) {
                         Text("다음")
-                            .font(.custom("Pretendard", size: 15).weight(.bold))
+                            .font(.pretendard(.bold, size: 15))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, maxHeight: 68)
                             .background(

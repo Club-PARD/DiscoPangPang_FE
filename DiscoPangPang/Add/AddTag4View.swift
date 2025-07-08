@@ -22,12 +22,12 @@ struct AddTag4View: View {
             ScrollView {
                 VStack(alignment: .leading, spacing: 0) {
                     Text("전략적사고테마")
-                        .font(.custom("Pretendard", size: 15).weight(.semibold))
+                        .font(.pretendard(.semibold, size: 15))
                         .foregroundColor(Color(red: 1, green: 0.69, blue: 0.08))
                         .padding(.bottom, 2)
                     
                     Text("정보 수집, 분석, 통찰력 발휘에 강한 재능을 가진 테마")
-                        .font(.custom("Pretendard", size: 13))
+                        .font(.pretendard(.regular, size: 13))
                         .foregroundColor(Color(red: 0.71, green: 0.73, blue: 0.74))
                         .padding(.bottom, 40)
                     
@@ -43,11 +43,11 @@ struct AddTag4View: View {
                                             .foregroundColor(tag.color)
                                         
                                         Text(tag.title)
-                                            .font(.custom("Pretendard", size: 13).weight(.semibold))
+                                            .font(.pretendard(.semibold, size: 13))
                                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                                         
                                         Text(tag.description)
-                                            .font(.custom("Pretendard", size: 10).weight(.medium))
+                                            .font(.pretendard(.medium, size: 10))
                                             .foregroundColor(Color(red: 0.69, green: 0.72, blue: 0.75))
                                     }
                                     .padding(.vertical, 16)
@@ -73,7 +73,7 @@ struct AddTag4View: View {
                         path.removeLast()
                     }) {
                         Text("이전")
-                            .font(.custom("Pretendard", size: 15).weight(.bold))
+                            .font(.pretendard(.bold, size: 15))
                             .foregroundColor(Color(red: 0.76, green: 0.76, blue: 0.76))
                             .frame(maxWidth: .infinity, maxHeight: 68)
                             .background(Color(red: 0.93, green: 0.92, blue: 0.93))
@@ -91,7 +91,7 @@ struct AddTag4View: View {
                         tabSelection = 0 
                     }) {
                         Text("경험 생성")
-                            .font(.custom("Pretendard", size: 15).weight(.bold))
+                            .font(.pretendard(.bold, size: 15))
                             .foregroundColor(.white)
                             .frame(maxWidth: .infinity, maxHeight: 68)
                             .background(

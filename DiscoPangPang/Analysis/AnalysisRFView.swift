@@ -28,13 +28,13 @@ struct AnalysisRFView: View {
 
             VStack(alignment: .leading) {
                 Text("관계형성")
-                    .font(Font.custom("Pretendard", size: 19).weight(.semibold))
+                    .font(.pretendard(.semibold, size: 19))
                     .foregroundColor(Color(red: 0.74, green: 0.17, blue: 0.06))
                     .padding(.top, 21)
                     .padding(.bottom, 7)
 
                 Text("원은 연결성과 포용력처럼\n사람과 사람을 이어주는 관계형성 테마를 의미해요.")
-                    .font(Font.custom("Pretendard", size: 13))
+                    .font(.pretendard(.regular, size: 13))
                     .foregroundColor(Color(red: 0.27, green: 0.3, blue: 0.33))
                     .padding(.bottom, 21)
 
@@ -64,7 +64,7 @@ struct AnalysisRFView: View {
                                 .frame(width: size, height: size)
                             
                             Text(tag.title)
-                                .font(Font.custom("Pretendard", size: 11).weight(.medium))
+                                .font(.pretendard(.medium, size: 11))
                                 .foregroundColor(Color(red: 0.87, green: 0.2, blue: 0.07))
                         }
                         .shadow(color: .black.opacity(0.12), radius: 16 / 2, x: 0, y: 8)

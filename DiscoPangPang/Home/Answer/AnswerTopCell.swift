@@ -34,7 +34,7 @@ struct AnswerTopCell: View {
                     // 서버 연결 (POST, UPDATE)
                 }, label: {
                     Text("임시저장")
-                        .font(.system(size: 12))
+                        .font(.pretendard(.medium, size: 12))
                         .foregroundColor(Color(red: 188/255, green: 188/255, blue: 188/255, opacity: 1))
                 })
                 .tint(.black)

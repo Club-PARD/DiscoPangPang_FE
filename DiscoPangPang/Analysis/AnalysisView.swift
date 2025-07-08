@@ -14,12 +14,12 @@ struct AnalysisView: View {
 
             VStack(alignment: .center){
                 Text("강점분석")
-                    .font(Font.custom("Pretendard", size: 19).weight(.semibold))
+                    .font(.pretendard(.semibold, size: 19))
                     .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                     .padding(.bottom, 8)
                 
                 Text("테마 별로 가장 강한 태그 5가지를 보여드릴게요.\n태그 도형의 크기가 클수록 본인에게 강한 태그에요! ")
-                    .font( Font.custom("Pretendard", size: 10).weight(.medium))
+                    .font(.pretendard(.medium, size: 10))
                     .foregroundColor(Color(red: 0.71, green: 0.73, blue: 0.74))
                     .padding(.bottom, 33)
                 
@@ -27,7 +27,7 @@ struct AnalysisView: View {
                     NavigationLink(destination: AnalysisEXView()) {
                         VStack(alignment: .center) {
                             Text("실행")
-                                .font(Font.custom("Pretendard", size: 13).weight(.semibold))
+                                .font(.pretendard(.semibold, size: 13))
                                 .foregroundColor(Color(red: 0.04, green: 0.42, blue: 0.7))
                                 .padding(.bottom, 32)
                             
@@ -60,7 +60,7 @@ struct AnalysisView: View {
                     NavigationLink(destination: AnalysisINView()) {
                         VStack(alignment: .center) {
                             Text("영향력")
-                                .font(Font.custom("Pretendard", size: 13).weight(.semibold))
+                                .font(.pretendard(.semibold, size: 13))
                                 .foregroundColor(Color(red: 0.15, green: 0.45, blue: 0.22))
                                 .padding(.bottom, 32)
                             
@@ -92,7 +92,7 @@ struct AnalysisView: View {
                     NavigationLink(destination: AnalysisRFView()) {
                         VStack(alignment: .center) {
                             Text("관계형성")
-                                .font(Font.custom("Pretendard", size: 13).weight(.semibold))
+                                .font(.pretendard(.semibold, size: 13))
                                 .foregroundColor(Color(red: 0.74, green: 0.17, blue: 0.06))
                                 .padding(.bottom, 32)
                             
@@ -122,7 +122,7 @@ struct AnalysisView: View {
                     NavigationLink(destination: AnalysisSTView()) {
                         VStack(alignment: .center) {
                             Text("전략적사고")
-                                .font(Font.custom("Pretendard", size: 13).weight(.semibold))
+                                .font(.pretendard(.semibold, size: 13))
                                 .foregroundColor(Color(red: 0.54, green: 0.36, blue: 0))
                                 .padding(.bottom, 32)
                             

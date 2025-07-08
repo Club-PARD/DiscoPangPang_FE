@@ -15,7 +15,7 @@ struct ExplainCell: View {
     
     var body: some View {
         Text(questionTypes[selectedIndex].typeValues[4])
-            .font(.system(size: 11))
+            .font(.pretendard(.light, size: 11))
             .foregroundColor(Color(red: 146/255, green: 146/255, blue: 146/255, opacity: 1))
     }
 }

@@ -27,7 +27,7 @@ struct QuestionStepCell: View {
                     print("typeValues: \(type.typeValues)")
                 }) {
                     Text(selectedIndex == index ? type.typeValues[1] : type.typeValues[0])
-                        .font(.system(size: 8))
+                        .font(.pretendard(.semibold, size: 8))
                         .foregroundColor(
                             selectedIndex == index
                             ? Color(red: 254/255, green: 128/255, blue: 82/255, opacity: 1)
