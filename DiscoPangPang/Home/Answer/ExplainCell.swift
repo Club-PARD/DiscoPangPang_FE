@@ -17,6 +17,7 @@ struct ExplainCell: View {
         Text(questionTypes[selectedIndex].typeValues[4])
             .font(.pretendard(.light, size: 11))
             .foregroundColor(Color(red: 146/255, green: 146/255, blue: 146/255, opacity: 1))
+            .animation(.easeInOut, value: selectedIndex)
     }
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct AnswerView: View {
     
     @State var isShowCancelAlert: Bool = false
-    @State var isShowTempSaveAlert: Bool = false
+    @Binding var isShowTempSaveAlert: Bool
     
     @Binding var navigationPath: NavigationPath
     @Binding var answerText: [String]
@@ -21,17 +21,24 @@ struct AnswerView: View {
             Color(red: 244/255, green: 245/255, blue: 246/255, opacity: 1).ignoresSafeArea(edges: .all)
             
             VStack(alignment: .leading, spacing: 8) {
-                AnswerTopCell(isShowCancelAlert: $isShowCancelAlert, isShowTempsaveAlert: $isShowTempSaveAlert, navigationPath: $navigationPath)
-                    .padding(.bottom, 16)
+                AnswerTopCell(isShowCancelAlert: $isShowCancelAlert,
+                              isShowTempsaveAlert: $isShowTempSaveAlert,
+                              navigationPath: $navigationPath)
+                    .padding(EdgeInsets(top: 0, leading: -12, bottom: 16, trailing: 0))
                 
-                QuestionStepCell(selectedIndex: $selectedIndex)
-                
-                QuestionCell(selectedIndex: $selectedIndex)
-                    .padding(.bottom, 16)
-                
-                ExplainCell(selectedIndex: $selectedIndex)
-                
-                AnswerCell(AnswerText: $answerText[selectedIndex], selectedIndex: $selectedIndex)
+                ScrollView(showsIndicators: false) {
+                    VStack(alignment: .leading, spacing: 8) {
+                        QuestionStepCell(selectedIndex: $selectedIndex)
+                        
+                        QuestionCell(selectedIndex: $selectedIndex)
+                            .padding(.bottom, 16)
+                        
+                        ExplainCell(selectedIndex: $selectedIndex)
+                        
+                        AnswerCell(AnswerText: $answerText[selectedIndex], selectedIndex: $selectedIndex)
+                    }
+                }
+                .scrollDismissesKeyboard(.interactively)
                 
                 Spacer()
             }
@@ -57,16 +64,16 @@ struct AnswerView: View {
                     .padding(.horizontal, 20)
             }
             
-            if isShowTempSaveAlert {
-                TemporarySaveAlert()
-                    .padding(.horizontal, 20)
-                    .offset(y: 225)
-                    .onAppear {
-                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-                            isShowTempSaveAlert = false
-                        }
-                    }
-            }
+//            if isShowTempSaveAlert {
+//                TemporarySaveAlert()
+//                    .padding(.horizontal, 20)
+//                    .offset(y: 225)
+//                    .onAppear {
+//                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
+//                            isShowTempSaveAlert = false
+//                        }
+//                    }
+//            }
         }
         .navigationBarBackButtonHidden(true)
     }
