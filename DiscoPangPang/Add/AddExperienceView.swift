@@ -50,6 +50,7 @@ struct AddExperienceView: View {
                     .background(Color(red: 0.94, green: 0.94, blue: 0.94).opacity(0.5))
                     .cornerRadius(12)
                     .contentShape(Rectangle())
+                    .onAppear (perform : UIApplication.shared.hideKeyboard)
             }
             .frame(width: 329, alignment: .topLeading)
             
@@ -105,11 +106,17 @@ struct AddExperienceView: View {
         .sheet(isPresented: $showEndPicker) {
             DatePickerModal(
                 date: endDate,
+                minimumDate: startDate.wrappedValue,
                 onConfirm: {
                     hasSelectedEndDate.wrappedValue = true
                     showEndPicker = false
                 }
             )
+            .onAppear {
+                if endDate.wrappedValue < startDate.wrappedValue {
+                    endDate.wrappedValue = startDate.wrappedValue
+                }
+            }
         }
         .toolbar(.hidden, for: .tabBar)
         .navigationTitle("경험 추가")
@@ -166,13 +173,18 @@ struct AddExperienceView: View {
     }
 }
 
+
 struct DatePickerModal: View {
     @Binding var date: Date
+    var minimumDate: Date? = nil
     var onConfirm: () -> Void
 
     var body: some View {
         VStack {
-            DatePicker("", selection: $date, displayedComponents: [.date])
+            DatePicker("",
+                       selection: $date,
+                       in: (minimumDate ?? Date.distantPast)...,
+                       displayedComponents: [.date])
                 .environment(\.locale, Locale(identifier: "ko_KR"))
                 .datePickerStyle(.wheel)
                 .labelsHidden()
@@ -188,6 +200,7 @@ struct DatePickerModal: View {
         .presentationDetents([.height(300)])
     }
 }
+
 
 #Preview {
     AddExperienceView(path: .constant(NavigationPath()), tabSelection: .constant(0))
