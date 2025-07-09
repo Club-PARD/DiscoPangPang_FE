@@ -25,8 +25,7 @@ struct AddExperienceView: View {
     var isButtonActive: Bool {
         !title.wrappedValue.isEmpty &&
         hasSelectedStartDate.wrappedValue &&
-        hasSelectedEndDate.wrappedValue &&
-        startDate.wrappedValue <= endDate.wrappedValue
+        hasSelectedEndDate.wrappedValue
     }
     
     func formatDate(_ date: Date) -> String {

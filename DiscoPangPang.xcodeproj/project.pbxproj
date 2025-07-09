@@ -411,7 +411,7 @@
 				CODE_SIGN_ENTITLEMENTS = DiscoPangPang/DiscoPangPang.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UCWR6AW3FG;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiscoPangPang/Info.plist;
@@ -442,7 +442,7 @@
 				CODE_SIGN_ENTITLEMENTS = DiscoPangPang/DiscoPangPang.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = UCWR6AW3FG;
+				DEVELOPMENT_TEAM = "";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = DiscoPangPang/Info.plist;

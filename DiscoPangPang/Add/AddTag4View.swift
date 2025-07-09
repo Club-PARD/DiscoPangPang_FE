@@ -88,14 +88,14 @@ struct AddTag4View: View {
                                 tagModel.labels.append(LabelData(labelName: selected, labelCategory: "전략적사고"))
                             }
 
-                            tagModel.projectId = experienceData.project?.projectId.uuidString ?? UUID().uuidString
+                            tagModel.projectId = experienceData.project?.projectId.uuidString ?? ""
                             experienceData.tags = tagModel
 
                         } else {
                             // tags가 nil일 경우 새로 생성
                             let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "전략적사고")
                             let newTagModel = TagModel(
-                                projectId: experienceData.project?.projectId.uuidString ?? UUID().uuidString,
+                                projectId: experienceData.project?.projectId.uuidString ?? "",
                                 labels: [newLabel]
                             )
                             experienceData.tags = newTagModel
@@ -178,7 +178,7 @@ private func postProject(data: ProjectModel) async {
     }
     
     // 2. 새로운 데이터 생성
-    let newProject = ProjectModel(projectId: UUID(), userId: 0, projectName: data.projectName, startDateTime: data.startDateTime, endDateTime: data.endDateTime)
+    let newProject = ProjectModel(projectId: data.projectId, userId: 1, projectName: data.projectName, startDateTime: data.startDateTime, endDateTime: data.endDateTime)
     
     // 3. get이 아닌 경우 URLRequest 객체 생성하기
     var request = URLRequest(url: url)
