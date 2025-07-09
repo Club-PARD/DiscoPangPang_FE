@@ -19,10 +19,17 @@ struct CancelAlert: View {
                 Button(action: {
                     isShowCancelAlert.toggle()
                 }, label: {
-                    Image(systemName: "xmark")
-                        .font(.system(size: 24))
-                        .foregroundColor(Color(red: 188/255, green: 188/255, blue: 188/255, opacity: 1))
+                    ZStack {
+                        Image(systemName: "xmark")
+                            .font(.system(size: 16))
+                            .foregroundColor(Color(red: 188/255, green: 188/255, blue: 188/255, opacity: 1))
+                        
+                        RoundedRectangle(cornerRadius: 12)
+                            .frame(width: 24, height: 24)
+                            .foregroundColor(.clear)
+                    }
                 })
+                .padding(.trailing, -4)
             }
             
             Image("image 5416")
