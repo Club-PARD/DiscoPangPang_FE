@@ -81,7 +81,18 @@ struct AddTag3View: View {
                     }
                     
                     Button(action: {
-                        experienceData.tags.labels["관계형성"] = selectedTagTitle
+                        if var tagModel = experienceData.tags {
+                            tagModel.labels.removeAll { $0.labelCategory == "관계형성" }
+                            if let selected = selectedTagTitle {
+                                tagModel.labels.append(LabelData(labelName: selected, labelCategory: "관계형성"))
+                            }
+                            experienceData.tags = tagModel  // ✅ projectId는 여기서 안 건드림
+                        } else {
+                            let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "관계형성")
+                            let newTagModel = TagModel(projectId: "", labels: [newLabel]) // 임시 projectId
+                            experienceData.tags = newTagModel
+                        }
+
                         path.append(Route.addTag4)
                     }) {
                         Text("다음")
