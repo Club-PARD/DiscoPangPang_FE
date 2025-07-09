@@ -39,29 +39,28 @@ struct DiscoPangPangApp: App {
     
     var body: some Scene {
         WindowGroup {
-            ContentView(answerText: $answerText, selectedIndex: $selectedIndex)
-//            ZStack {
-//                if showSplash {
-//                    SplashView()
-//                        .onAppear {
-//                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
-//                                checkAppleLoginStatus()
-//                            }
-//                        }
-//                } else if isLoggedIn {
-//                    ContentView(answerText: $answerText,
-//                                selectedIndex: $selectedIndex)
-//                } else {
-//                    SplashView()
-//                        .overlay(
-//                            AppleLogIn {
-//                                // 로그인 성공 시 처리
-//                                isLoggedIn = true
-//                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
-//                            }
-//                        )
-//                }
-//            }
+            ZStack {
+                if showSplash {
+                    SplashView()
+                        .onAppear {
+                            DispatchQueue.main.asyncAfter(deadline: .now() + 2.0) {
+                                checkAppleLoginStatus()
+                            }
+                        }
+                } else if isLoggedIn {
+                    ContentView(answerText: $answerText,
+                                selectedIndex: $selectedIndex)
+                } else {
+                    SplashView()
+                        .overlay(
+                            AppleLogIn {
+                                // 로그인 성공 시 처리
+                                isLoggedIn = true
+                                UserDefaults.standard.set(true, forKey: "isLoggedIn")
+                            }
+                        )
+                }
+            }
         }
     }
     

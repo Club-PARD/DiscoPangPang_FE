@@ -64,10 +64,7 @@ class ExperienceData: ObservableObject {
     }
 }
 
-// 서버 주소
-enum BaseURL: String {
-    case baseUrl = "https://giboon.store"
-}
+// 서버 주소 -> BaseURL 파일
 
 // 에러타입 정의
 enum ErrorType: Error {
