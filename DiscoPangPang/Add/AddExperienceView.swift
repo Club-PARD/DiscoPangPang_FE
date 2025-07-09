@@ -23,7 +23,9 @@ struct AddExperienceView: View {
     var hasSelectedEndDate: Binding<Bool> { $experienceData.hasSelectedEndDate }
     
     var isButtonActive: Bool {
-        !title.wrappedValue.isEmpty && hasSelectedStartDate.wrappedValue && hasSelectedEndDate.wrappedValue
+        !title.wrappedValue.isEmpty &&
+        hasSelectedStartDate.wrappedValue &&
+        hasSelectedEndDate.wrappedValue
     }
     
     func formatDate(_ date: Date) -> String {
@@ -68,12 +70,12 @@ struct AddExperienceView: View {
             Spacer()
             
             Button(action: {
-                scheduleTestNotification(title: title.wrappedValue) //테스트용
                 experienceData.project = ProjectModel(
-                    id: UUID(),
+                    projectId: UUID(),
+                    userId: 1, // 또는 로그인된 사용자의 userId
                     projectName: experienceData.title,
-                    startDate: experienceData.startDate,
-                    endDate: experienceData.endDate
+                    startDateTime: experienceData.startDate,
+                    endDateTime: experienceData.endDate
                 )
                 path.append(Route.addTag1)
             }) {

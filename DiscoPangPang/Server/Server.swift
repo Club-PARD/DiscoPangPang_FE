@@ -16,21 +16,24 @@ struct UserModel: Codable, Hashable {
     let part: String
 }
 
-struct ProjectModel: Codable, Hashable, Identifiable {
-    var id: UUID
-    let projectName: String
-    let startDate: Date
-    let endDate: Date
+struct ProjectModel: Codable {
+    var projectId: UUID
+    var userId: Int
+    var projectName: String
+    var startDateTime: Date
+    var endDateTime: Date
 }
 
-struct TagModel: Codable, Hashable {
-    var labels: [String:String]
+struct TagModel: Codable {
+    var projectId: String
+    var labels: [LabelData]
 }
 
-struct ProjectData: Codable, Hashable {
-    var project: ProjectModel
-    var tag: TagModel
+struct LabelData: Codable {
+    var labelName: String
+    var labelCategory: String
 }
+
 
 struct STARLModel: Codable, Hashable {
     let s: String
@@ -42,7 +45,7 @@ struct STARLModel: Codable, Hashable {
 
 class ExperienceData: ObservableObject {
     @Published var project: ProjectModel?
-    @Published var tags: TagModel = TagModel(labels: [:])
+    @Published var tags: TagModel?
 
     @Published var title: String = ""
     @Published var startDate: Date = Date()
@@ -52,7 +55,7 @@ class ExperienceData: ObservableObject {
     
     func reset() {
         project = nil
-        tags = TagModel(labels: [:])
+        tags = nil
         title = ""
         startDate = Date()
         endDate = Date()
@@ -63,7 +66,7 @@ class ExperienceData: ObservableObject {
 
 // 서버 주소
 enum BaseURL: String {
-    case baseUrl = "  /*[ 주소 ]*/ "
+    case baseUrl = "https://giboon.store"
 }
 
 // 에러타입 정의
