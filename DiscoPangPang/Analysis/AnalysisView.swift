@@ -7,6 +7,12 @@
 
 import SwiftUI
 
+struct TagData: Codable, Identifiable {
+    let id = UUID()
+    let title: String
+    let value: Int
+}
+
 struct AnalysisView: View {
     var body: some View {
         ZStack {

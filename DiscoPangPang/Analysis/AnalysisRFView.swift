@@ -9,14 +9,7 @@ import SwiftUI
 
 struct AnalysisRFView: View {
     @Environment(\.presentationMode) var presentationMode
-    
-    let tags: [TagData] = [
-        TagData(title: "적응", value: 9),
-        TagData(title: "조화", value: 7),
-        TagData(title: "포용", value: 5),
-        TagData(title: "공감", value: 3),
-        TagData(title: "연결성", value: 1)
-    ]
+    @State private var tags: [TagData] = []
     
     let maxSize: CGFloat = 130
     let minSize: CGFloat = 60
@@ -39,7 +32,7 @@ struct AnalysisRFView: View {
                     .padding(.bottom, 21)
 
                 ZStack {
-                    let sorted = tags.sorted { $0.value > $1.value }
+                    let sorted = tags.sorted { $0.value > $1.value }.prefix(5)
                     let maxValue = CGFloat(sorted.first?.value ?? 100)
                     
                     ForEach(Array(sorted.enumerated()), id: \.element.id) { index, tag in
@@ -110,6 +103,46 @@ struct AnalysisRFView: View {
                 .padding(.leading, -8)
             }
         }
+        .task {
+            do {
+                let loadedTags = try await getAnalysis()
+                tags = loadedTags
+            } catch {
+                print("❌ 데이터 로딩 실패: \(error)")
+            }
+        }
+    }
+}
+
+private func getAnalysis() async throws -> [TagData] {
+    
+    // 1. URL 만들기
+    let urlString = BaseURL.baseUrl.rawValue
+    guard let url = URL(string: "\(urlString)/api/project-tag/label-count/by-category?userId=8&category=관계형성") else {
+        throw ErrorType.invalidURL
+    }
+    
+    // 2. URLSession 구성 및 URLSession Task 만든 후 task 요청
+    let (data, response) = try await URLSession.shared.data(from: url)
+    
+    // 서버로부터 데이터를 받아오는데 실패하면 error를 던지고 함수 종료
+    guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+        throw ErrorType.invalidResponse
+    }
+    
+    // 데이터를 성공적으로 받아왔을 경우 do-catch문 실행
+    do {
+        let rawDict = try JSONDecoder().decode([String: Int].self, from: data)
+        // UserModel의 배열 형태로 디코딩하여 결과값 반환
+        let data = rawDict.map { TagData(title: $0.key, value: $0.value) }
+        //let data = try JSONDecoder().decode([TagData].self, from: data)
+        print(data)
+        print("✅ Load Successful!")
+        
+        return data
+    } catch {
+        print("❌ Load Error: \(error)")
+        throw ErrorType.networkError
     }
 }
 
