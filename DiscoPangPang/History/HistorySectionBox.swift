@@ -28,7 +28,7 @@ struct HistorySectionBox: View {
             Text(tags)
                 .font(Font.custom("Pretendard", size: 11))
                 .foregroundColor(Color(red: 0.54, green: 0.58, blue: 0.62))
-                .multilineTextAlignment(.center)
+                .multilineTextAlignment(.leading)
         }
         .frame(width: 353, height: 190)
         .background(
