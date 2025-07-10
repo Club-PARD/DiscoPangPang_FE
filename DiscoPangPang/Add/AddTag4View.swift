@@ -178,7 +178,8 @@ private func postProject(data: ProjectModel) async {
     }
     
     // 2. 새로운 데이터 생성
-    let newProject = ProjectModel(projectId: data.projectId, userId: 1, projectName: data.projectName, endDateTime: data.endDateTime, startDateTime: data.startDateTime)
+    let newProject = ProjectModel(projectId: data.projectId, userId: data.userId, projectName: data.projectName, endDateTime: data.endDateTime, startDateTime: data.startDateTime)
+
     
     // 3. get이 아닌 경우 URLRequest 객체 생성하기
     var request = URLRequest(url: url)
@@ -231,7 +232,7 @@ private func postTag(data: TagModel) async {
     
     do {
         let bodyData = try JSONEncoder().encode(newTag)
-            print("🔸보낼 JSON: \(String(data: bodyData, encoding: .utf8) ?? "")")
+        print("🔸보낼 JSON: \(String(data: bodyData, encoding: .utf8) ?? "")")
         request.httpBody = try JSONEncoder().encode(newTag)
     } catch {
         print("❌ Encoding Error: \(error)")

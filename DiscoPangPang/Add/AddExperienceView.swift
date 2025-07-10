@@ -73,7 +73,7 @@ struct AddExperienceView: View {
             Button(action: {
                 experienceData.project = ProjectModel(
                     projectId: UUID(),
-                    userId: 1, // 또는 로그인된 사용자의 userId
+                    userId: 8, // 또는 로그인된 사용자의 userId
                     projectName: experienceData.title,
                     endDateTime: experienceData.endDate,
                     startDateTime: experienceData.startDate
