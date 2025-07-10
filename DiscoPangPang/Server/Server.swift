@@ -16,14 +16,6 @@ struct UserModel: Codable, Hashable {
     let part: String
 }
 
-struct ProjectModel: Codable {
-    var projectId: UUID
-    var userId: Int
-    var projectName: String
-    var startDateTime: Date
-    var endDateTime: Date
-}
-
 struct TagModel: Codable {
     var projectId: String
     var labels: [LabelData]
@@ -34,7 +26,6 @@ struct LabelData: Codable {
     var labelCategory: String
 }
 
-
 struct STARLModel: Codable, Hashable {
     let s: String
     let t: String
@@ -42,6 +33,7 @@ struct STARLModel: Codable, Hashable {
     let r: String
     let l: String
 }
+
 
 class ExperienceData: ObservableObject {
     @Published var project: ProjectModel?
@@ -64,7 +56,6 @@ class ExperienceData: ObservableObject {
     }
 }
 
-// 서버 주소 -> BaseURL 파일
 
 // 에러타입 정의
 enum ErrorType: Error {

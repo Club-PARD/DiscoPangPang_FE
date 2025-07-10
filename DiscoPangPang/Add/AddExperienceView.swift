@@ -75,8 +75,9 @@ struct AddExperienceView: View {
                     projectId: UUID(),
                     userId: 8, // 또는 로그인된 사용자의 userId
                     projectName: experienceData.title,
-                    startDateTime: experienceData.startDate,
-                    endDateTime: experienceData.endDate
+                    endDateTime: experienceData.endDate,
+                    startDateTime: experienceData.startDate
+                    
                 )
                 path.append(Route.addTag1)
             }) {
