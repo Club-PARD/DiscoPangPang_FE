@@ -74,8 +74,9 @@ struct AddExperienceView: View {
                 experienceData.project = ProjectModel(
                     projectId: UUID(),
                     projectName: experienceData.title,
-                    startDateTime: experienceData.startDate,
-                    endDateTime: experienceData.endDate
+                    endDateTime: experienceData.endDate,
+                    startDateTime: experienceData.startDate
+                    
                 )
                 path.append(Route.addTag1)
             }) {
