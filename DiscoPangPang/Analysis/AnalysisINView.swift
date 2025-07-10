@@ -115,11 +115,11 @@ struct AnalysisINView: View {
     }
 }
 
-private func getAnalysis() async throws -> [TagData] {
+private func getAnalysis(_ userId: Int = 8) async throws -> [TagData] {
     
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
-    guard let url = URL(string: "\(urlString)/api/project-tag/label-count/by-category?userId=8&category=영향력") else {
+    guard let url = URL(string: "\(urlString)/api/project-tag/label-count/by-category?userId=\(userId)&category=영향력") else {
         throw ErrorType.invalidURL
     }
     

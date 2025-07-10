@@ -18,7 +18,6 @@ struct UserModel: Codable, Hashable {
 
 struct ProjectModel: Codable {
     var projectId: UUID
-    var userId: Int
     var projectName: String
     var startDateTime: Date
     var endDateTime: Date
