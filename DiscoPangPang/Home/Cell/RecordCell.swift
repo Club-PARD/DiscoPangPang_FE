@@ -12,7 +12,7 @@ struct RecordCell: View {
     @State private var isShowModal = false
     @Binding var navigationPath: NavigationPath
     
-    @State private var dataModels: [ProjectModel] = []
+    @State var dataModels: [ProjectModel] = []
     
     let today = Date()
     let record: RecordDataModel
@@ -45,7 +45,7 @@ struct RecordCell: View {
             ForEach(dataModels, id: \.projectId) { dataModel in
                 VStack(alignment: .trailing, spacing: 16) {
                     HStack(alignment: .center) {
-                        Text("\(String(describing: dataModel.endDateTime))")
+                        Text(formatDate(dataModel.endDateTime))
                             .font(Font.custom("Pretendard", size: 13))
                             .foregroundColor(Color(red: 0.53, green: 0.56, blue: 0.59))
                         
@@ -60,10 +60,10 @@ struct RecordCell: View {
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
                         }
-                    } //HStack
+                    } // HStack
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("\(String(describing: dataModel.projectName))")
+                        Text(dataModel.projectName)
                             .font(
                                 Font.custom("Pretendard", size: 19)
                                     .weight(.semibold)
@@ -149,6 +149,14 @@ struct RecordCell: View {
 //                }
 //            }
 //        }
+    }
+    // 날짜 포맷터 함수
+    func formatDate(_ date: Date?) -> String {
+        guard let date = date else { return "날짜 없음" }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 MM월 dd일" // 연-월-일 형태
+        return formatter.string(from: date)
     }
     
     func category(for tag: String) -> String? {
