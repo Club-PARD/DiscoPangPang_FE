@@ -68,12 +68,12 @@ struct EditExperienceView: View {
             Spacer()
             
             Button(action: {
-                experienceData.project = ProjectModel(
-                    projectId: UUID(), // 또는 로그인된 사용자의 userId
-                    projectName: experienceData.title,
-                    startDateTime: experienceData.startDate,
-                    endDateTime: experienceData.endDate
-                )
+//                experienceData.project = ProjectModel(
+//                    projectId: UUID(), // 또는 로그인된 사용자의 userId
+//                    projectName: experienceData.title,
+//                    startDateTime: experienceData.startDate,
+//                    endDateTime: experienceData.endDate
+//                )
             }) {
                 HStack {
                     Text("수정완료")

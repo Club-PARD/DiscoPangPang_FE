@@ -11,7 +11,6 @@ import SwiftUI
 // MARK: - Project DataModel
 struct ProjectModel: Hashable, Codable {
     var projectId: UUID?
-    var userId: Int?
     var projectName: String
     var endDateTime: Date
     var startDateTime: Date
