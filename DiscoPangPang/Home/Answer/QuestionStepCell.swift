@@ -36,7 +36,7 @@ struct QuestionStepCell: View {
                         .lineLimit(1)
                         .fixedSize()        // Capsule이 Text에 맞춰 늘어남
                         .frame(width: 20, height: 20)
-                        .padding(.horizontal, selectedIndex == index ? 12 : 0)
+                        .padding(.horizontal, selectedIndex == index ? 16 : 0)
                         .background(
                             Group {
                                 if selectedIndex == index {

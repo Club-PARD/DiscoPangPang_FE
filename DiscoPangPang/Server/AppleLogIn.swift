@@ -48,6 +48,18 @@ struct AppleLogIn: View {
                 let email = credential.email ?? "(이전에 로그인하여 이메일 없음)"
                 let fullName = credential.fullName?.givenName ?? ""
                 
+                // 🔐 identityToken 추출
+                if let tokenData = credential.identityToken,
+                   let tokenString = String(data: tokenData, encoding: .utf8) {
+                    
+                    print("✅ identityToken: \(tokenString)")
+                    
+                    // ✅ 서버에 전송
+                    sendIdentityTokenToServer(tokenString)
+                } else {
+                    print("❌ identityToken을 가져오지 못함")
+                }
+                
                 print("🔓 로그인 성공")
                 print("🧑‍💻 userId: \(userId)")
                 print("📧 email: \(email)")
@@ -69,6 +81,38 @@ struct AppleLogIn: View {
 }
 
 
+func sendIdentityTokenToServer(_ token: String) {
+    guard let url = URL(string: "https://giboon.store") else { return }
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    // 전송할 JSON 데이터
+    let payload: [String: Any] = [
+        "identityToken": token
+    ]
+    
+    // JSON 직렬화
+    request.httpBody = try? JSONSerialization.data(withJSONObject: payload, options: [])
+
+    // URLSession으로 요청
+    URLSession.shared.dataTask(with: request) { data, response, error in
+        if let error = error {
+            print("❌ 서버 요청 실패: \(error)")
+            return
+        }
+        
+        if let httpResponse = response as? HTTPURLResponse {
+            print("📡 서버 응답 상태코드: \(httpResponse.statusCode)")
+        }
+        
+        if let data = data,
+           let responseString = String(data: data, encoding: .utf8) {
+            print("📄 서버 응답: \(responseString)")
+        }
+    }.resume()
+}
 
 
 class AppleSignInCoordinator: NSObject, ASAuthorizationControllerDelegate {
