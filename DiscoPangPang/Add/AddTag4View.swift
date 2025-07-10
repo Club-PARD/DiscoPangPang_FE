@@ -169,16 +169,16 @@ struct AddTag4View: View {
     }
 }
 
-private func postProject(data: ProjectModel) async {
+private func postProject(_ userId: Int = 8, data: ProjectModel) async {
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
-    guard let url = URL(string: "\(urlString)/project/create") else {
+    guard let url = URL(string: "\(urlString)/project/\(userId)") else {
         print("❌ invalidURL")
         return
     }
     
     // 2. 새로운 데이터 생성
-    let newProject = ProjectModel(projectId: data.projectId, userId: data.userId, projectName: data.projectName, endDateTime: data.endDateTime, startDateTime: data.startDateTime)
+    let newProject = ProjectModel(projectId: data.projectId, projectName: data.projectName, endDateTime: data.endDateTime, startDateTime: data.startDateTime)
 
     
     // 3. get이 아닌 경우 URLRequest 객체 생성하기

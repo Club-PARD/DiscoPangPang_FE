@@ -1,20 +1,17 @@
 //
-//  AddExperienceView.swift
+//  EditExperienceView.swift
 //  DiscoPangPang
 //
-//  Created by 임재성 on 7/2/25.
+//  Created by 임재성 on 7/10/25.
 //
 
 import SwiftUI
 
-struct AddExperienceView: View {
+struct EditExperienceView: View {
     @EnvironmentObject var experienceData: ExperienceData
     
     @State private var showStartPicker = false
     @State private var showEndPicker = false
-    
-    @Binding var path: NavigationPath
-    @Binding var tabSelection: Int
     
     var title: Binding<String> { $experienceData.title }
     var startDate: Binding<Date> { $experienceData.startDate }
@@ -71,17 +68,15 @@ struct AddExperienceView: View {
             Spacer()
             
             Button(action: {
-                experienceData.project = ProjectModel(
-                    projectId: UUID(),
-                    projectName: experienceData.title,
-                    endDateTime: experienceData.endDate,
-                    startDateTime: experienceData.startDate
-                    
-                )
-                path.append(Route.addTag1)
+//                experienceData.project = ProjectModel(
+//                    projectId: UUID(), // 또는 로그인된 사용자의 userId
+//                    projectName: experienceData.title,
+//                    startDateTime: experienceData.startDate,
+//                    endDateTime: experienceData.endDate
+//                )
             }) {
                 HStack {
-                    Text("다음")
+                    Text("수정완료")
                         .font(.pretendard(.bold, size: 15))
                         .foregroundColor(.white)
                 }
@@ -119,14 +114,12 @@ struct AddExperienceView: View {
             }
         }
         .toolbar(.hidden, for: .tabBar)
-        .navigationTitle("경험 추가")
+        .navigationTitle("경험 수정")
         .navigationBarTitleDisplayMode(.inline)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    experienceData.reset()
-                    path.removeLast(path.count) // 네비게이션 스택 초기화
-                    tabSelection = 0            // 홈 탭으로 이동
+                    //tabSelection = 0            // 홈 탭으로 이동
                 }) {
                     ZStack {
                         Image(systemName: "xmark")
@@ -173,36 +166,6 @@ struct AddExperienceView: View {
     }
 }
 
-
-struct DatePickerModal: View {
-    @Binding var date: Date
-    var minimumDate: Date? = nil
-    var onConfirm: () -> Void
-
-    var body: some View {
-        VStack {
-            DatePicker("",
-                       selection: $date,
-                       in: (minimumDate ?? Date.distantPast)...,
-                       displayedComponents: [.date])
-                .environment(\.locale, Locale(identifier: "ko_KR"))
-                .datePickerStyle(.wheel)
-                .labelsHidden()
-                .padding()
-
-            Button("완료") {
-                onConfirm()
-            }
-            .font(.pretendard(.bold, size: 15))
-            .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
-            .padding(.bottom, 20)
-        }
-        .presentationDetents([.height(300)])
-    }
-}
-
-
 #Preview {
-    AddExperienceView(path: .constant(NavigationPath()), tabSelection: .constant(0))
-        .environmentObject(ExperienceData())
+    EditExperienceView()
 }
