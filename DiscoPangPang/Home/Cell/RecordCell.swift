@@ -1,5 +1,5 @@
 //
-//  RecordCel.swift
+//  RecordCell.swift
 //  DiscoPangPang
 //
 //  Created by 임재성 on 7/2/25.
@@ -14,8 +14,6 @@ struct RecordCell: View {
     @State var dataModels: [ProjectModel] = []
     @State var tagDataModels: [TagLoadModel] = []
     @State private var selectedProject: ProjectModel? = nil
-    
-    let record: RecordDataModel
     
     let categoryTags: [String: [String]] = [
         "실행": ["성취", "조정자", "신념", "일관성", "신중함", "규율", "집중", "책임", "회복력"],
@@ -134,15 +132,15 @@ struct RecordCell: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didDeleteProject)) { notification in
-                    Task {
-                        do {
-                            print("🔔 프로젝트 삭제 알림 수신, 데이터 다시 불러오기")
-                            dataModels = try await getProjectsWithTags(for: 8)
-                        } catch {
-                            print("❌ Failed to reload projects after deletion: \(error)")
-                        }
-                    }
+            Task {
+                do {
+                    print("🔔 프로젝트 삭제 알림 수신, 데이터 다시 불러오기")
+                    dataModels = try await getProjectsWithTags(for: 8)
+                } catch {
+                    print("❌ Failed to reload projects after deletion: \(error)")
                 }
+            }
+        }
     }
     // 날짜 포맷터 함수
     func formatDate(_ date: Date?) -> String {
@@ -185,5 +183,5 @@ struct RecordCell: View {
 }
 
 //#Preview {
-//    RecordCell(record: mockRecordData)
+//    RecordCell()
 //}

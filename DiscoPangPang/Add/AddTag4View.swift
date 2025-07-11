@@ -184,7 +184,6 @@ private func postProject(_ userId: Int = 8, data: ProjectModel) async {
     // 2. 새로운 데이터 생성
     let newProject = ProjectModel(projectId: data.projectId, projectName: data.projectName, endDateTime: data.endDateTime, startDateTime: data.startDateTime)
 
-    
     // 3. get이 아닌 경우 URLRequest 객체 생성하기
     var request = URLRequest(url: url)
     request.httpMethod = "POST"

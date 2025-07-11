@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CustomTextEdit: ViewModifier {
-    
     @Binding var insightText: String
     let placeholder: String
     

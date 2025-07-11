@@ -63,17 +63,6 @@ struct AnswerView: View {
                 CancelAlert(isShowCancelAlert: $isShowCancelAlert, navigationPath: $navigationPath)
                     .padding(.horizontal, 20)
             }
-            
-//            if isShowTempSaveAlert {
-//                TemporarySaveAlert()
-//                    .padding(.horizontal, 20)
-//                    .offset(y: 225)
-//                    .onAppear {
-//                        DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
-//                            isShowTempSaveAlert = false
-//                        }
-//                    }
-//            }
         }
         .navigationBarBackButtonHidden(true)
         .onAppear {
@@ -98,7 +87,6 @@ struct AnswerView: View {
 }
 
 func getSTARL(projectId: UUID) async throws -> STARLModel {
-    
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/star/\(projectId)") else {

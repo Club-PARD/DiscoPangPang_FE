@@ -53,8 +53,9 @@ struct HistoryINView: View {
                 
                 ForEach(strengthTags2.filter { $0.title != "선택안함" }, id: \.title) { tag in
                     if let group = projectGroups.first(where: { $0.labelName == tag.title }) {
-                        let records: [(title: String, dateRange: String)] = group.projects.map {
+                        let records: [(project: Project, title: String, dateRange: String)] = group.projects.map {
                             (
+                                project: $0,
                                 title: $0.projectName,
                                 dateRange: formatDateRange(start: $0.startDateTime, end: $0.endDateTime)
                             )
@@ -118,7 +119,6 @@ struct HistoryINView: View {
 }
 
 private func getHistory() async throws -> [ProjectTagGroup] {
-    
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/api/project-tag/grouped-projects?category=영향력") else {

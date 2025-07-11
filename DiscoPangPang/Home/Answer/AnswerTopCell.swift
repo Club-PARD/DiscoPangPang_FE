@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct AnswerTopCell: View {
-    
     @Binding var isShowCancelAlert: Bool
     @Binding var isShowTempsaveAlert: Bool
     @Binding var navigationPath: NavigationPath
     
     var body: some View {
         ZStack {
-            Text("PARD 5기 롱커톤")
+            Text("답변 기록하기")
             
             HStack {
                 Button(action: {

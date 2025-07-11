@@ -13,9 +13,9 @@ struct ProjectTagGroup: Codable, Identifiable {
     let projects: [Project]
 }
 
-struct Project: Codable, Identifiable {
-    var id: String { projectId }
-    let projectId: String
+struct Project: Codable {
+    var id: UUID { projectId }
+    var projectId: UUID
     let projectName: String
     let startDateTime: String
     let endDateTime: String

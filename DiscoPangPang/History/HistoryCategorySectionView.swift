@@ -9,7 +9,10 @@ import SwiftUI
 
 struct HistoryCategorySectionView: View {
     let tag: StrengthTag
-    let records: [(title: String, dateRange: String)]
+    let records: [(project: Project, title: String, dateRange: String)]
+    
+    @State private var selectedProject: Project? = nil
+    @State private var isNavigatingToAnswer = false
 
     var body: some View {
         VStack(spacing: 8) {
@@ -32,13 +35,22 @@ struct HistoryCategorySectionView: View {
                             title: record.title,
                             dateRange: record.dateRange
                         ) {
-                            // 버튼 클릭 시 액션
-                            print("클릭됨: \(record.title)")
+                            selectedProject = record.project
+                            isNavigatingToAnswer = true
                         }
 
                     }
                 }
             }
+            
+            NavigationLink(
+                destination: selectedProject.map { HistoryAnswerView(project: $0) },
+                isActive: $isNavigatingToAnswer
+            ) {
+                EmptyView()
+            }
+            .hidden()
+
         }
     }
 }

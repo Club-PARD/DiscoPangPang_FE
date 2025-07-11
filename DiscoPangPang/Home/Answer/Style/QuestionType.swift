@@ -10,7 +10,6 @@ import SwiftUI
 // 번호 (rawValue)
 // STARL, 질문, 설명, 예시
 
-
 enum QuestionType: String {
     case question1 = "01"
     case question2 = "02"
@@ -18,7 +17,6 @@ enum QuestionType: String {
     case question4 = "04"
     case question5 = "05"
 }
-
 
 extension QuestionType {
     var typeValues: [String] {

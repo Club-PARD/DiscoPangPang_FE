@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct HomeView: View {
-    
     @Binding var navigationPath: NavigationPath
     @Binding var isShowTempSaveAlert: Bool
     
@@ -49,7 +48,7 @@ struct HomeView: View {
                             .padding(.trailing, -20)
                     }  // HStack
                     
-                    RecordCell(navigationPath: $navigationPath, record: mockRecordData)
+                    RecordCell(navigationPath: $navigationPath)
                         .padding(.bottom, 20)
                     
                 }  // LazyVStack
@@ -71,7 +70,6 @@ struct HomeView: View {
         }  // ZStack
     }
 }
-
 
 //#Preview {
 //    HomeView(navigationPath: $navigationPath, record: MockRecordData)
