@@ -41,7 +41,7 @@ struct ModalView: View {
                 Button(action: {
                     Task {
                         print("삭제 시도 project: \(experienceData.project as Any)")
-                                print("삭제 시도 projectId: \(experienceData.project?.projectId as Any)")
+                        print("삭제 시도 projectId: \(experienceData.project?.projectId as Any)")
                         if let projectId = project?.projectId {
                             await deleteProject(projectId: projectId)
                             dismiss()

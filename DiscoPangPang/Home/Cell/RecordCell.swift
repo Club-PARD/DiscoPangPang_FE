@@ -79,6 +79,7 @@ struct RecordCell: View {
                         
                         
                         Button(action: {
+                            experienceData.project = dataModel
                             navigationPath.append("AnswerView")
                         }, label: {
                             Text("경험 기록하기")

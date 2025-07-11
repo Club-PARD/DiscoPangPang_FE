@@ -32,7 +32,6 @@ struct STARLModel: Codable, Hashable {
     let a: String
     let r: String
     let l: String
-    var projectId: UUID
 }
 
 
