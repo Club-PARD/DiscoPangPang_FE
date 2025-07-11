@@ -95,7 +95,7 @@ struct AddTag4View: View {
                             // tags가 nil일 경우 새로 생성
                             let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "전략적사고")
                             let newTagModel = TagModel(
-                                projectId: experienceData.project?.projectId?.uuidString ?? "",
+                                projectId: experienceData.project?.projectId.uuidString ?? "",
                                 labels: [newLabel]
                             )
                             experienceData.tags = newTagModel
