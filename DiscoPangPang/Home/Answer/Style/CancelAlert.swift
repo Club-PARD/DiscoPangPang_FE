@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct CancelAlert: View {
-    
     @Binding var isShowCancelAlert: Bool
     @Binding var navigationPath: NavigationPath
     
@@ -84,7 +83,6 @@ struct CancelAlert: View {
             RoundedRectangle(cornerRadius: 16)
                 .fill(Color.white)
         )
-//        .border(.red, width: 1)
     }
 }
 

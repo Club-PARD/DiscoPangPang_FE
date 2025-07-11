@@ -118,7 +118,6 @@ struct HistoryINView: View {
 }
 
 private func getHistory() async throws -> [ProjectTagGroup] {
-    
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/api/project-tag/grouped-projects?category=영향력") else {

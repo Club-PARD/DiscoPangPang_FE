@@ -8,7 +8,6 @@
 import SwiftUI
 import Foundation
 
-
 extension UIApplication {
     func hideKeyboard() {
         guard let window = windows.first else { return }
@@ -24,7 +23,6 @@ extension UIApplication: UIGestureRecognizerDelegate {
         return false
     }
 }
-
 
 struct AnswerCell: View {
     
@@ -44,10 +42,6 @@ struct AnswerCell: View {
             .onAppear (perform : UIApplication.shared.hideKeyboard)
     }
 }
-
-
-
-
 
 //#Preview {
 //    AnswerCell(selectedIndex: .constant(0))

@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct AnswerTopCell: View {
-    
     @Binding var isShowCancelAlert: Bool
     @Binding var isShowTempsaveAlert: Bool
     @Binding var navigationPath: NavigationPath

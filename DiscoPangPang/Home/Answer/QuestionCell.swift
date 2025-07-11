@@ -8,7 +8,6 @@
 import SwiftUI
 
 struct QuestionCell: View {
-    
     @Binding var selectedIndex: Int
     
     let questionTypes: [QuestionType] = [.question1, .question2, .question3, .question4, .question5]
@@ -30,7 +29,6 @@ struct QuestionCell: View {
         .bold()
     }
 }
-
 
 #Preview {
     VStack(spacing: 20) {

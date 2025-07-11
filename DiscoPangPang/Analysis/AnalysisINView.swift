@@ -116,7 +116,6 @@ struct AnalysisINView: View {
 }
 
 private func getAnalysis(_ userId: Int = 8) async throws -> [TagData] {
-    
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/api/project-tag/label-count/by-category?userId=\(userId)&category=영향력") else {

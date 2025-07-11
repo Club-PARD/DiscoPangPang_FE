@@ -15,7 +15,6 @@ struct AnswerButton: View {
     
     let questionTypes: [QuestionType] = [.question1, .question2, .question3, .question4, .question5]
 
-    
     var body: some View {
         Button(action: {
             if answerText[selectedIndex] != "" {
@@ -62,7 +61,6 @@ struct AnswerButton: View {
 }
 
 struct PreviousButton: View {
-    
     @Binding var selectedIndex: Int
     
     var body: some View {

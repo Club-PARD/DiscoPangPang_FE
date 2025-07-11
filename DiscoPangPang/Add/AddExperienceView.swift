@@ -76,7 +76,6 @@ struct AddExperienceView: View {
                     projectName: experienceData.title,
                     endDateTime: experienceData.endDate,
                     startDateTime: experienceData.startDate
-                    
                 )
                 path.append(Route.addTag1)
             }) {
@@ -200,7 +199,6 @@ struct DatePickerModal: View {
         .presentationDetents([.height(300)])
     }
 }
-
 
 #Preview {
     AddExperienceView(path: .constant(NavigationPath()), tabSelection: .constant(0))
