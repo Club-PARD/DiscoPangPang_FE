@@ -101,7 +101,7 @@ struct AddTag4View: View {
                             experienceData.tags = newTagModel
                         }
 
-                        let testDeadline = Calendar.current.date(byAdding: .minute, value: 1, to: Date())!
+                        let testDeadline = Calendar.current.date(byAdding: .second, value: 10, to: Date())!
                         scheduleDeadlineNotification(deadline: testDeadline, title: "")
                         //scheduleDeadlineNotification(deadline: experienceData.endDate, title: experienceData.title)
                         
