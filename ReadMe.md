@@ -63,6 +63,65 @@
 
 ## App Flow
 
+- 스플래쉬 뷰 + 애플 로그인
+
+<table>
+  <tr>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+  </tr>
+</table>
+
+- 활동 등록 + Notification 알림
+  
+<table>
+  <tr>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+  </tr>
+</table>
+
+- 활동 기록
+  
+<table>
+  <tr>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+  </tr>
+</table>
+
+- 활동 분석
+  
+<table>
+  <tr>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+    <td><img src="" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  ㅇㅇㅇ  ]</td>
+  </tr>
+</table>
 
 
 ## Tech Stack
