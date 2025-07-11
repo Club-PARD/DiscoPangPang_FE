@@ -39,7 +39,6 @@ struct DiscoPangPangApp: App {
     
     var body: some Scene {
         WindowGroup {
-//            ContentView(answerText: $answerText, selectedIndex: $selectedIndex)
             ZStack {
                 if showSplash {
                     SplashView()

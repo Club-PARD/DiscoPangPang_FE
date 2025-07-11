@@ -22,7 +22,7 @@ struct TagModel: Codable {
 }
 
 struct LabelData: Codable {
-    var labelName: String
+    var labelName: String?
     var labelCategory: String
 }
 
