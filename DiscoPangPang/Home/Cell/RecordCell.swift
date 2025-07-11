@@ -13,6 +13,7 @@ struct RecordCell: View {
     @Binding var navigationPath: NavigationPath
     
     @State var dataModels: [ProjectModel] = []
+    @State var tagDataModels: [TagLoadModel] = []
     
     let today = Date()
     let record: RecordDataModel
@@ -71,13 +72,14 @@ struct RecordCell: View {
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                         
                         HStack(alignment: .top, spacing: 4) {
-                            ForEach(0..<record.tag.count, id: \.self){ index in
-                                let tagName = record.tag[index]
-                                let categoryName = category(for: tagName) ?? "기본"
+                            ForEach(dataModel.tags ?? [], id: \.labelName) { tag in
+                                
+                                let categoryName = category(for: tag.labelName) ?? "기본"
                                 let textColor = categoryTextColors[categoryName] ?? .gray
                                 let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
                                 
-                                Text(tagName)
+                                //                                Text(tagName)
+                                Text(tag.labelName)
                                     .font(
                                         Font.custom("Pretendard", size: 11)
                                             .weight(.semibold)
@@ -134,21 +136,12 @@ struct RecordCell: View {
         .onAppear {
             Task {
                 do {
-                    let result = try await getProjectModel(8)
-                    dataModels = result
+                    dataModels = try await getProjectsWithTags(for: 8)
                 } catch {
-                    print("❌ Failed to fetch user: \(error)")
+                    print("❌ Failed to load projects with tags: \(error)")
                 }
             }
         }
-
-//            .navigationDestination(for: String.self) { value in
-//                switch value {
-//                case "AnswerView": AnswerView(answerPath: $answerPath)
-//                default: Text("Invalid Page")
-//                }
-//            }
-//        }
     }
     // 날짜 포맷터 함수
     func formatDate(_ date: Date?) -> String {
