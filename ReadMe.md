@@ -63,48 +63,57 @@
 
 ## App Flow
 
-- 스플래쉬 뷰 + 애플 로그인
-
+- 스플래쉬 뷰 + 애플 로그인 + 홈뷰
 <table>
   <tr>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/21356c39-9946-4b20-8790-1d3a7a7dbddb" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/e660f516-9a36-4ddf-8f0b-74c784ad4a84" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/640d75fb-64ba-4ef5-b35d-067127c5fb73" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/65562e14-2786-486e-b2a6-81119d802919" width="150"></td>
   </tr>
   <tr>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  스플래쉬 뷰 ]</td>
+    <td align="center">[  애플 로그인 1  ]</td>
+    <td align="center">[  애플 로그인 2  ]</td>
+    <td align="center">[  메인 뷰  ]</td>
   </tr>
 </table>
 
 - 활동 등록 + Notification 알림
-  
 <table>
   <tr>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/86111f41-70fc-487e-941b-383626273a0b" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/ad64ca5e-fe64-4aa8-9d02-45ce94d57c97" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/37dbcd70-f7cd-4e45-a83f-0f9ac02d0c15" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/b00ff96f-25cf-4065-b959-66140c02b0aa" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/102ed8e0-4a4f-4f89-9ab1-63ed31e4500e" width="150"></td>
+    <td><img src="https://github.com/user-attachments/assets/460b3c72-6dc7-45b6-ab96-36e54a4dbab1" width="150"></td>
   </tr>
   <tr>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  활동등록  ]</td>
+    <td align="center">[  태그선택 1  ]</td>
+    <td align="center">[  태그선택 2  ]</td>
+    <td align="center">[  태그선택 3  ]</td>
+    <td align="center">[  태그선택 4  ]</td>
+    <td align="center">[  Notification 알림  ]</td>
   </tr>
 </table>
 
 - 활동 기록
-  
 <table>
   <tr>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/e612bd41-939b-49e0-8fa5-03aaaa06a48f" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/ed55bc4a-9164-4256-98a4-4efb85d44223" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/e5bf6d07-01a9-4ef1-84b3-efc0129833cd" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/bcc0c684-523e-42b4-8ab5-947e29a265f2" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/5989773c-95a9-4201-b77f-b390528926aa" width="300"></td>
   </tr>
   <tr>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  질문 1  ]</td>
+    <td align="center">[  질문 2  ]</td>
+    <td align="center">[  질문 3  ]</td>
+    <td align="center">[  질문 4  ]</td>
+    <td align="center">[  질문 5  ]</td>
   </tr>
 </table>
 
