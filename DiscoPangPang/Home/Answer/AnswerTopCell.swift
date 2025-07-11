@@ -8,9 +8,12 @@
 import SwiftUI
 
 struct AnswerTopCell: View {
+    @EnvironmentObject var experienceData: ExperienceData
     @Binding var isShowCancelAlert: Bool
     @Binding var isShowTempsaveAlert: Bool
     @Binding var navigationPath: NavigationPath
+    @Binding var answerText: [String]
+    @Binding var selectedIndex: Int
     
     var body: some View {
         ZStack {
@@ -35,9 +38,27 @@ struct AnswerTopCell: View {
                 Spacer()
                 
                 Button(action: {
-                    self.isShowTempsaveAlert.toggle()
-                    navigationPath.removeLast()
-                    // 서버 연결 (POST, UPDATE)
+                    Task {
+                        if let projectId = experienceData.project?.projectId {
+                            let starl = STARLModel(
+                                s: answerText[0],
+                                t: answerText[1],
+                                a: answerText[2],
+                                r: answerText[3],
+                                l: answerText[4]
+                            )
+                            await updateSTARL(projectId: projectId, data: starl)
+                            
+                            await MainActor.run {
+                                answerText = ["", "", "", "", ""]
+                                selectedIndex = 0
+                                self.isShowTempsaveAlert.toggle()
+                                navigationPath.removeLast()
+                            }
+                        } else {
+                            print("❌ projectId가 없습니다")
+                        }
+                    }
                 }, label: {
                     Text("임시저장")
                         .font(.pretendard(.medium, size: 12))
