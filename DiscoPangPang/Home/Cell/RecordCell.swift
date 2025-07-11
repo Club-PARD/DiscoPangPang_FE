@@ -11,9 +11,14 @@ struct RecordCell: View {
     @EnvironmentObject var experienceData: ExperienceData
     @Binding var navigationPath: NavigationPath
     
+<<<<<<< HEAD
     @State private var isShowModal = false
     @State private var selectedProject: ProjectModel? = nil
     @State private var dataModels: [ProjectModel] = []
+=======
+    @State var dataModels: [ProjectModel] = []
+    @State var tagDataModels: [TagLoadModel] = []
+>>>>>>> main
     
     let today = Date()
     let record: RecordDataModel
@@ -46,7 +51,7 @@ struct RecordCell: View {
             ForEach(dataModels, id: \.projectId) { dataModel in
                 VStack(alignment: .trailing, spacing: 16) {
                     HStack(alignment: .center) {
-                        Text("\(String(describing: dataModel.endDateTime))")
+                        Text(formatDate(dataModel.endDateTime))
                             .font(Font.custom("Pretendard", size: 13))
                             .foregroundColor(Color(red: 0.53, green: 0.56, blue: 0.59))
                         
@@ -61,36 +66,38 @@ struct RecordCell: View {
                                 .scaledToFit()
                                 .frame(width: 24, height: 24)
                         }
-                    } //HStack
+                    } // HStack
                     
                     VStack(alignment: .leading, spacing: 8) {
-                        Text("\(String(describing: dataModel.projectName))")
+                        Text(dataModel.projectName)
                             .font(
                                 Font.custom("Pretendard", size: 19)
                                     .weight(.semibold)
                             )
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                         
-//                        HStack(alignment: .top, spacing: 4) {
-//                            ForEach(0..<record.tag.count, id: \.self){ index in
-//                                let tagName = record.tag[index]
-//                                let categoryName = category(for: tagName) ?? "기본"
-//                                let textColor = categoryTextColors[categoryName] ?? .gray
-//                                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
-//                                
-//                                Text(tagName)
-//                                    .font(
-//                                        Font.custom("Pretendard", size: 11)
-//                                            .weight(.semibold)
-//                                    )
-//                                    .kerning(0.4)
-//                                    .foregroundColor(textColor)
-//                                    .padding(.vertical, 5)
-//                                    .padding(.horizontal, 8)
-//                                    .background(bgColor)
-//                                    .cornerRadius(8)
-//                            }
-//                        } //HStack
+                        HStack(alignment: .top, spacing: 4) {
+                            ForEach(dataModel.tags ?? [], id: \.labelName) { tag in
+                                
+                                let categoryName = category(for: tag.labelName) ?? "기본"
+                                let textColor = categoryTextColors[categoryName] ?? .gray
+                                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
+                                
+                                //                                Text(tagName)
+                                Text(tag.labelName)
+                                    .font(
+                                        Font.custom("Pretendard", size: 11)
+                                            .weight(.semibold)
+                                    )
+                                    .kerning(0.4)
+                                    .foregroundColor(textColor)
+                                    .padding(.vertical, 5)
+                                    .padding(.horizontal, 8)
+                                    .background(bgColor)
+                                    .cornerRadius(8)
+                            }
+                        } //HStack
+
                     } //VStack
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     
@@ -149,21 +156,20 @@ struct RecordCell: View {
         .onAppear {
             Task {
                 do {
-                    let result = try await getProjectModel(8)
-                    dataModels = result
+                    dataModels = try await getProjectsWithTags(for: 8)
                 } catch {
-                    print("❌ Failed to fetch user: \(error)")
+                    print("❌ Failed to load projects with tags: \(error)")
                 }
             }
         }
-
-//            .navigationDestination(for: String.self) { value in
-//                switch value {
-//                case "AnswerView": AnswerView(answerPath: $answerPath)
-//                default: Text("Invalid Page")
-//                }
-//            }
-//        }
+    }
+    // 날짜 포맷터 함수
+    func formatDate(_ date: Date?) -> String {
+        guard let date = date else { return "날짜 없음" }
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "ko_KR")
+        formatter.dateFormat = "yyyy년 MM월 dd일" // 연-월-일 형태
+        return formatter.string(from: date)
     }
     
     func category(for tag: String) -> String? {
