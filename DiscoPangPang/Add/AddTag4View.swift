@@ -88,20 +88,20 @@ struct AddTag4View: View {
                                 tagModel.labels.append(LabelData(labelName: selected, labelCategory: "전략적사고"))
                             }
 
-//                            tagModel.projectId = experienceData.project?.projectId.uuidString ?? ""
+                            tagModel.projectId = experienceData.project?.projectId ?? UUID()
                             experienceData.tags = tagModel
 
                         } else {
                             // tags가 nil일 경우 새로 생성
                             let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "전략적사고")
                             let newTagModel = TagModel(
-                                projectId: experienceData.project?.projectId.uuidString ?? "",
+                                projectId: experienceData.project?.projectId ?? UUID(),
                                 labels: [newLabel]
                             )
                             experienceData.tags = newTagModel
                         }
 
-                        let testDeadline = Calendar.current.date(byAdding: .minute, value: 1, to: Date())!
+                        let testDeadline = Calendar.current.date(byAdding: .second, value: 10, to: Date())!
                         scheduleDeadlineNotification(deadline: testDeadline, title: "")
                         //scheduleDeadlineNotification(deadline: experienceData.endDate, title: experienceData.title)
                         

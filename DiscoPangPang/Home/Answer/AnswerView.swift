@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct AnswerView: View {
-    
+    @EnvironmentObject var experienceData: ExperienceData
     @State var isShowCancelAlert: Bool = false
     @Binding var isShowTempSaveAlert: Bool
     
@@ -76,50 +76,56 @@ struct AnswerView: View {
 //            }
         }
         .navigationBarBackButtonHidden(true)
+        .onAppear {
+            Task {
+                guard let projectId = experienceData.project?.projectId else {
+                    print("❌ projectId가 없습니다.")
+                    return
+                }
+                do {
+                    let savedSTARL = try await getSTARL(projectId: projectId)
+                    await MainActor.run {
+                        answerText = [savedSTARL.s, savedSTARL.t, savedSTARL.a, savedSTARL.r, savedSTARL.l]
+                        selectedIndex = 0
+                        print("✅ STARL 데이터 로드 성공: \(answerText)")
+                    }
+                } catch {
+                    print("❌ STARL 데이터 로드 실패: \(error)")
+                }
+            }
+        }
     }
 }
 
-private func postSTARL(projectId: UUID, data: STARLModel) async {
+func getSTARL(projectId: UUID) async throws -> STARLModel {
+    
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/star/\(projectId)") else {
-        print("❌ invalidURL")
-        return
+        throw ErrorType.invalidURL
     }
     
-    // 2. 새로운 데이터 생성
-    let newSTARL = STARLModel(s: data.s, t: data.t, a: data.a, r: data.r, l: data.l, projectId: data.projectId)
+    // 2. URLSession 구성 및 URLSession Task 만든 후 task 요청
+    let (data, response) = try await URLSession.shared.data(from: url)
     
-    // 3. get이 아닌 경우 URLRequest 객체 생성하기
-    var request = URLRequest(url: url)
-    request.httpMethod = "POST"
-    request.setValue( "application/json", forHTTPHeaderField: "Content-Type")
-    
-    do {
-        let bodyData = try JSONEncoder().encode(newSTARL)
-        print("🔸보낼 JSON: \(String(data: bodyData, encoding: .utf8) ?? "")")
-        request.httpBody = try JSONEncoder().encode(newSTARL)
-    } catch {
-        print("❌ Encoding Error: \(error)")
-        return
+    // 서버로부터 데이터를 받아오는데 실패하면 error를 던지고 함수 종료
+    guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+        throw ErrorType.invalidResponse
     }
     
-    // 4. URLSession 구성 및 URLSession Task 만든 후 네트워크 요청
+    // 데이터를 성공적으로 받아왔을 경우 do-catch문 실행
     do {
-        let (_, response) = try await URLSession.shared.data(for: request)
+        // UserModel의 배열 형태로 디코딩하여 결과값 반환
+        let data = try JSONDecoder().decode(STARLModel.self, from: data)
+        print(data)
+        print("✅ Load Successful!")
         
-        // 서버로부터 데이터를 받아오는데 실패하면 error를 던지고 함수 종료
-        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-            print("❌ Response Error: \(response)")
-            return
-        }
-        
-        print("✅ Post Successful!")
+        return data
     } catch {
-        print("❌ Network Error: \(error)")
+        print("❌ Load Error: \(error)")
+        throw ErrorType.networkError
     }
 }
-
 
 //#Preview {
 //    AnswerView(navigationPath: $navigationPath, answerText: $answerText)

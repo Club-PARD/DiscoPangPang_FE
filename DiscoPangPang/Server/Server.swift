@@ -17,7 +17,7 @@ struct UserModel: Codable, Hashable {
 }
 
 struct TagModel: Codable {
-    var projectId: String
+    var projectId: UUID
     var labels: [LabelData]
 }
 
@@ -32,7 +32,6 @@ struct STARLModel: Codable, Hashable {
     let a: String
     let r: String
     let l: String
-    var projectId: UUID
 }
 
 

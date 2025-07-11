@@ -7,6 +7,10 @@
 
 import SwiftUI
 
+extension Notification.Name {
+    static let didDeleteProject = Notification.Name("didDeleteProject")
+}
+
 struct ModalView: View {
     @EnvironmentObject var experienceData: ExperienceData
     var project: ProjectModel?
@@ -41,9 +45,10 @@ struct ModalView: View {
                 Button(action: {
                     Task {
                         print("삭제 시도 project: \(experienceData.project as Any)")
-                                print("삭제 시도 projectId: \(experienceData.project?.projectId as Any)")
+                        print("삭제 시도 projectId: \(experienceData.project?.projectId as Any)")
                         if let projectId = project?.projectId {
                             await deleteProject(projectId: projectId)
+                            NotificationCenter.default.post(name: .didDeleteProject, object: projectId)
                             dismiss()
                         } else {
                             print("❌ projectId is nil")
