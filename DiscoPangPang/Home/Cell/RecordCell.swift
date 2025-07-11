@@ -8,14 +8,13 @@
 import SwiftUI
 
 struct RecordCell: View {
-    
-    @State private var isShowModal = false
+    @EnvironmentObject var experienceData: ExperienceData
     @Binding var navigationPath: NavigationPath
-    
+    @State private var isShowModal = false
     @State var dataModels: [ProjectModel] = []
     @State var tagDataModels: [TagLoadModel] = []
+    @State private var selectedProject: ProjectModel? = nil
     
-    let today = Date()
     let record: RecordDataModel
     
     let categoryTags: [String: [String]] = [
@@ -40,8 +39,6 @@ struct RecordCell: View {
     ]
     
     var body: some View {
-        
-//        NavigationStack(path: $answerPath) {
         VStack(spacing: 20) {
             ForEach(dataModels.sorted(by: { $0.endDateTime < $1.endDateTime }), id: \.projectId) { dataModel in
                 VStack(alignment: .trailing, spacing: 16) {
@@ -53,7 +50,8 @@ struct RecordCell: View {
                         Spacer()
                         
                         Button(action: {
-                            print("버튼 눌림")
+                            experienceData.project = dataModel
+                            selectedProject = dataModel
                             isShowModal = true
                         }){
                             Image("more")
@@ -65,33 +63,10 @@ struct RecordCell: View {
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text(dataModel.projectName)
-                            .font(
-                                Font.custom("Pretendard", size: 19)
-                                    .weight(.semibold)
-                            )
+                            .font(Font.custom("Pretendard", size: 19).weight(.semibold))
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                         
-                        HStack(alignment: .top, spacing: 4) {
-                            ForEach(dataModel.tags ?? [], id: \.labelName) { tag in
-                                
-                                let categoryName = category(for: tag.labelName) ?? "기본"
-                                let textColor = categoryTextColors[categoryName] ?? .gray
-                                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
-                                
-                                //                                Text(tagName)
-                                Text(tag.labelName)
-                                    .font(
-                                        Font.custom("Pretendard", size: 11)
-                                            .weight(.semibold)
-                                    )
-                                    .kerning(0.4)
-                                    .foregroundColor(textColor)
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, 8)
-                                    .background(bgColor)
-                                    .cornerRadius(8)
-                            }
-                        } //HStack
+                        TagListView(tags: dataModel.tags)
                     } //VStack
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     
@@ -124,13 +99,28 @@ struct RecordCell: View {
                 .cornerRadius(16)
                 .shadow(color: .black.opacity(0.03), radius: 5, x: 0, y: 4)
                 .sheet(isPresented: $isShowModal) {
-                    ModalView {
-                        isShowModal = false
+                    if let selectedProject {
+                        ModalView(
+                            project: selectedProject,
+                            dismiss: {
+                                isShowModal = false
+                            },
+                            onEdit: {
+                                experienceData.project = selectedProject
+                                experienceData.title = selectedProject.projectName
+                                experienceData.startDate = selectedProject.startDateTime
+                                experienceData.endDate = selectedProject.endDateTime
+                                experienceData.hasSelectedStartDate = true
+                                experienceData.hasSelectedEndDate = true
+                                
+                                navigationPath.append("EditExperience")
+                                isShowModal = false
+                            }
+                        )
+                        .presentationDetents([.height(136)])
+                        .presentationDragIndicator(.hidden)
                     }
-                    .presentationDetents([.height(136)])
-                    .presentationDragIndicator(.hidden)
                 }
-                
             }
         }
         .onAppear {
@@ -159,6 +149,27 @@ struct RecordCell: View {
             }
         }
         return nil
+    }
+    
+    @ViewBuilder
+    func TagListView(tags: [TagLoadModel]?) -> some View {
+        let safeTags = tags ?? []
+        HStack(alignment: .top, spacing: 4) {
+            ForEach(safeTags, id: \.labelName) { tag in
+                let categoryName = category(for: tag.labelName) ?? "기본"
+                let textColor = categoryTextColors[categoryName] ?? .gray
+                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
+
+                Text(tag.labelName)
+                    .font(.custom("Pretendard", size: 11).weight(.semibold))
+                    .kerning(0.4)
+                    .foregroundColor(textColor)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 8)
+                    .background(bgColor)
+                    .cornerRadius(8)
+            }
+        }
     }
 }
 

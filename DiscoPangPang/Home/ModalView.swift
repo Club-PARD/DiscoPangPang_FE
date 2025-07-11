@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct ModalView: View {
+    @EnvironmentObject var experienceData: ExperienceData
+    var project: ProjectModel?
     var dismiss: () -> Void
-    //var onEdit: () -> Void
-//    var projectId: String
-//    var userId: Int
+    var onEdit: () -> Void
 
     var body: some View {
         ZStack {
@@ -24,7 +24,7 @@ struct ModalView: View {
             VStack(alignment: .leading, spacing: 32) {
                 Button(action: {
                     dismiss()
-                    //onEdit()
+                    onEdit()
                 }, label: {
                     HStack(spacing: 24) {
                         Image("edit")
@@ -40,8 +40,14 @@ struct ModalView: View {
                 
                 Button(action: {
                     Task {
-                        //await deleteProject(projectId: projectId, userId: userId)
-                        dismiss()
+                        print("삭제 시도 project: \(experienceData.project as Any)")
+                                print("삭제 시도 projectId: \(experienceData.project?.projectId as Any)")
+                        if let projectId = project?.projectId {
+                            await deleteProject(projectId: projectId)
+                            dismiss()
+                        } else {
+                            print("❌ projectId is nil")
+                        }
                     }
                 }, label: {
                     HStack(spacing: 24) {
@@ -79,39 +85,7 @@ struct ModalView: View {
     }
 }
 
-//private func updateProject(projectId: String, userId: Int, data: ProjectModel) async {
-//    let urlString = BaseURL.baseUrl.rawValue
-//    guard let url = URL(string: "\(urlString)/project/\(projectId)?userId=\(userId)") else {
-//        print("❌ invalidURL")
-//        return
-//    }
-//    
-//    let newProject = ProjectModel(projectId: data.projectId, userId: data.userId, projectName: data.projectName, startDateTime: data.startDateTime, endDateTime: data.endDateTime)
-//    
-//    var request = URLRequest(url: url)
-//    request.httpMethod = "PATCH"
-//    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
-//    
-//    do {
-//        request.httpBody = try JSONEncoder().encode(newProject)
-//    } catch {
-//        print("❌ Encoding Error: \(error)")
-//        return
-//    }
-//    
-//    do {
-//        let (_, response) = try await URLSession.shared.data(for: request)
-//        
-//        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
-//            print("❌ error: \(response)")
-//            return
-//        }
-//    } catch {
-//        print("❌ Network Error: \(error)")
-//    }
-//}
-
-private func deleteProject(projectId: String, userId: Int) async {
+private func deleteProject(projectId: UUID,_ userId: Int = 8) async {
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/project/\(projectId)?userId=\(userId)") else {
         print("❌ invalidURL")
@@ -135,5 +109,8 @@ private func deleteProject(projectId: String, userId: Int) async {
 }
 
 #Preview {
-    ModalView{print("닫기")}
+    ModalView(
+        dismiss: { print("닫기") },
+        onEdit: { print("수정하기") }
+    )
 }

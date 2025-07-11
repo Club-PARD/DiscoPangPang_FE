@@ -37,11 +37,14 @@ struct ContentView: View {
                                    navigationPath: $navigationPath,
                                    answerText: $answerText,
                                    selectedIndex: $selectedIndex)
+                    case "EditExperience":
+                        EditExperienceView(navigationPath: $navigationPath)
                     default:
                         Text("Invalid Page")
                     }
                 }
             }
+            .environmentObject(experienceData)
             .tabItem {
                 Image(tabSelection == 0 ? "Home_" : "Home")
                 Text("홈")

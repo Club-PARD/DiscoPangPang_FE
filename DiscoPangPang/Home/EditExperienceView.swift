@@ -7,8 +7,15 @@
 
 import SwiftUI
 
+struct PatchProjectModel: Codable {
+    let projectName: String
+    let startDateTime: Date
+    let endDateTime: Date
+}
+
 struct EditExperienceView: View {
     @EnvironmentObject var experienceData: ExperienceData
+    @Binding var navigationPath: NavigationPath
     
     @State private var showStartPicker = false
     @State private var showEndPicker = false
@@ -68,12 +75,20 @@ struct EditExperienceView: View {
             Spacer()
             
             Button(action: {
-//                experienceData.project = ProjectModel(
-//                    projectId: UUID(), // 또는 로그인된 사용자의 userId
-//                    projectName: experienceData.title,
-//                    startDateTime: experienceData.startDate,
-//                    endDateTime: experienceData.endDate
-//                )
+                if let projectId = experienceData.project?.projectId {
+                    let updatedProject = PatchProjectModel(
+                        projectName: experienceData.title,
+                        startDateTime: experienceData.startDate,
+                        endDateTime: experienceData.endDate
+                    )
+
+                    Task {
+                        await updateProject(projectId: projectId, userId: 8, data: updatedProject)
+                        navigationPath = NavigationPath()
+                    }
+                } else {
+                    print("❌ projectId 없음")
+                }
             }) {
                 HStack {
                     Text("수정완료")
@@ -116,10 +131,11 @@ struct EditExperienceView: View {
         .toolbar(.hidden, for: .tabBar)
         .navigationTitle("경험 수정")
         .navigationBarTitleDisplayMode(.inline)
+        .navigationBarBackButtonHidden(true)
         .toolbar {
             ToolbarItem(placement: .navigationBarTrailing) {
                 Button(action: {
-                    //tabSelection = 0            // 홈 탭으로 이동
+                    navigationPath = NavigationPath()
                 }) {
                     ZStack {
                         Image(systemName: "xmark")
@@ -166,6 +182,44 @@ struct EditExperienceView: View {
     }
 }
 
-#Preview {
-    EditExperienceView()
+private func updateProject(projectId: UUID, userId: Int, data: PatchProjectModel) async {
+    let urlString = BaseURL.baseUrl.rawValue
+    guard let url = URL(string: "\(urlString)/project/\(projectId)?userId=\(userId)") else {
+        print("❌ invalidURL")
+        return
+    }
+    
+    let newProject = PatchProjectModel(projectName: data.projectName, startDateTime: data.startDateTime, endDateTime: data.endDateTime)
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "PATCH"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    let encoder = JSONEncoder()
+    encoder.dateEncodingStrategy = .iso8601
+    
+    do {
+        let bodyData = try encoder.encode(newProject)
+        print("🔸보낼 JSON: \(String(data: bodyData, encoding: .utf8) ?? "")")
+        request.httpBody = try encoder.encode(newProject)
+    } catch {
+        print("❌ Encoding Error: \(error)")
+        return
+    }
+    
+    do {
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            print("❌ error: \(response)")
+            return
+        }
+    } catch {
+        print("❌ Network Error: \(error)")
+    }
 }
+
+//#Preview {
+//    EditExperienceView(navigationPath: $navigationPath)
+//        .environmentObject(ExperienceData())
+//}

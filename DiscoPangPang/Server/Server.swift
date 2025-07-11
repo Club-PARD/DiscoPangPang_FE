@@ -32,6 +32,7 @@ struct STARLModel: Codable, Hashable {
     let a: String
     let r: String
     let l: String
+    var projectId: UUID
 }
 
 
@@ -53,6 +54,15 @@ class ExperienceData: ObservableObject {
         endDate = Date()
         hasSelectedStartDate = false
         hasSelectedEndDate = false
+    }
+    
+    func setFromProject(_ project: ProjectModel) {
+        self.project = project
+        self.title = project.projectName
+        self.startDate = project.startDateTime
+        self.endDate = project.endDateTime
+        self.hasSelectedStartDate = true
+        self.hasSelectedEndDate = true
     }
 }
 
