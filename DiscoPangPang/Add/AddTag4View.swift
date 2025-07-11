@@ -81,23 +81,27 @@ struct AddTag4View: View {
                     }
                     
                     Button(action: {
-                        if var tagModel = experienceData.tags {
-                            // 기존 라벨 배열에 현재 선택된 라벨을 추가 또는 덮어쓰기
-                            tagModel.labels.removeAll { $0.labelCategory == "전략적사고" }
+                        let labelNameToSave: String? = {
                             if let selected = selectedTagTitle {
-                                tagModel.labels.append(LabelData(labelName: selected, labelCategory: "전략적사고"))
+                                return selected == "선택안함" ? nil : selected
+                            } else {
+                                return nil
                             }
-
+                        }()
+                        
+                        guard experienceData.project?.projectId != nil else {
+                            print("❌ projectId is nil — 경험 생성 흐름 확인 필요")
+                            return
+                        }
+                        
+                        if var tagModel = experienceData.tags {
+                            tagModel.labels.removeAll { $0.labelCategory == "전략적사고" }
+                            tagModel.labels.append(LabelData(labelName: labelNameToSave, labelCategory: "전략적사고"))
                             tagModel.projectId = experienceData.project?.projectId ?? UUID()
                             experienceData.tags = tagModel
-
                         } else {
-                            // tags가 nil일 경우 새로 생성
-                            let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "전략적사고")
-                            let newTagModel = TagModel(
-                                projectId: experienceData.project?.projectId ?? UUID(),
-                                labels: [newLabel]
-                            )
+                            let newLabel = LabelData(labelName: labelNameToSave, labelCategory: "전략적사고")
+                            let newTagModel = TagModel(projectId: experienceData.project?.projectId ?? UUID(), labels: [newLabel])
                             experienceData.tags = newTagModel
                         }
 

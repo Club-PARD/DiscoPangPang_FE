@@ -81,19 +81,25 @@ struct AddTag2View: View {
                     }
                     
                     Button(action: {
+                        let labelNameToSave: String? = {
+                            if let selected = selectedTagTitle {
+                                return selected == "선택안함" ? nil : selected
+                            } else {
+                                return nil
+                            }
+                        }()
+                        
                         if var tagModel = experienceData.tags {
                             tagModel.labels.removeAll { $0.labelCategory == "영향력" }
-                            if let selected = selectedTagTitle {
-                                tagModel.labels.append(LabelData(labelName: selected, labelCategory: "영향력"))
-                            }
-                            experienceData.tags = tagModel  // ✅ projectId는 여기서 안 건드림
+                            tagModel.labels.append(LabelData(labelName: labelNameToSave, labelCategory: "영향력"))
+                            experienceData.tags = tagModel  // projectId는 여기서 안 건드림
                         } else {
                             guard let projectId = experienceData.project?.projectId else {
                                 print("❌ projectId is nil — 경험 생성 흐름 확인 필요")
                                 return
                             }
-                            let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "영향력")
-                            let newTagModel = TagModel(projectId: projectId, labels: [newLabel]) // 임시 projectId
+                            let newLabel = LabelData(labelName: labelNameToSave, labelCategory: "영향력")
+                            let newTagModel = TagModel(projectId: projectId, labels: [newLabel])
                             experienceData.tags = newTagModel
                         }
 
