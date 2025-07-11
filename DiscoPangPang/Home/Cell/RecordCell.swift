@@ -10,11 +10,11 @@ import SwiftUI
 struct RecordCell: View {
     @EnvironmentObject var experienceData: ExperienceData
     @Binding var navigationPath: NavigationPath
-    
+    @State private var isShowModal = false
     @State var dataModels: [ProjectModel] = []
     @State var tagDataModels: [TagLoadModel] = []
+    @State private var selectedProject: ProjectModel? = nil
     
-    let today = Date()
     let record: RecordDataModel
     
     let categoryTags: [String: [String]] = [
@@ -39,8 +39,6 @@ struct RecordCell: View {
     ]
     
     var body: some View {
-        
-//        NavigationStack(path: $answerPath) {
         VStack(spacing: 20) {
             ForEach(dataModels, id: \.projectId) { dataModel in
                 VStack(alignment: .trailing, spacing: 16) {
@@ -52,6 +50,7 @@ struct RecordCell: View {
                         Spacer()
                         
                         Button(action: {
+                            experienceData.project = dataModel
                             selectedProject = dataModel
                             isShowModal = true
                         }){
@@ -64,34 +63,10 @@ struct RecordCell: View {
                     
                     VStack(alignment: .leading, spacing: 8) {
                         Text(dataModel.projectName)
-                            .font(
-                                Font.custom("Pretendard", size: 19)
-                                    .weight(.semibold)
-                            )
+                            .font(Font.custom("Pretendard", size: 19).weight(.semibold))
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                         
-                        HStack(alignment: .top, spacing: 4) {
-                            ForEach(dataModel.tags ?? [], id: \.labelName) { tag in
-                                
-                                let categoryName = category(for: tag.labelName) ?? "기본"
-                                let textColor = categoryTextColors[categoryName] ?? .gray
-                                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
-                                
-                                //                                Text(tagName)
-                                Text(tag.labelName)
-                                    .font(
-                                        Font.custom("Pretendard", size: 11)
-                                            .weight(.semibold)
-                                    )
-                                    .kerning(0.4)
-                                    .foregroundColor(textColor)
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, 8)
-                                    .background(bgColor)
-                                    .cornerRadius(8)
-                            }
-                        } //HStack
-
+                        TagListView(tags: dataModel.tags)
                     } //VStack
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     
@@ -126,6 +101,7 @@ struct RecordCell: View {
                 .sheet(isPresented: $isShowModal) {
                     if let selectedProject {
                         ModalView(
+                            project: selectedProject,
                             dismiss: {
                                 isShowModal = false
                             },
@@ -173,6 +149,27 @@ struct RecordCell: View {
             }
         }
         return nil
+    }
+    
+    @ViewBuilder
+    func TagListView(tags: [TagLoadModel]?) -> some View {
+        let safeTags = tags ?? []
+        HStack(alignment: .top, spacing: 4) {
+            ForEach(safeTags, id: \.labelName) { tag in
+                let categoryName = category(for: tag.labelName) ?? "기본"
+                let textColor = categoryTextColors[categoryName] ?? .gray
+                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
+
+                Text(tag.labelName)
+                    .font(.custom("Pretendard", size: 11).weight(.semibold))
+                    .kerning(0.4)
+                    .foregroundColor(textColor)
+                    .padding(.vertical, 5)
+                    .padding(.horizontal, 8)
+                    .background(bgColor)
+                    .cornerRadius(8)
+            }
+        }
     }
 }
 

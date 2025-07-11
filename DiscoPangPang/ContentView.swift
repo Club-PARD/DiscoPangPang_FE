@@ -38,7 +38,7 @@ struct ContentView: View {
                                    answerText: $answerText,
                                    selectedIndex: $selectedIndex)
                     case "EditExperience":
-                        EditExperienceView()
+                        EditExperienceView(navigationPath: $navigationPath)
                     default:
                         Text("Invalid Page")
                     }

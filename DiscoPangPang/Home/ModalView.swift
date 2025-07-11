@@ -9,6 +9,7 @@ import SwiftUI
 
 struct ModalView: View {
     @EnvironmentObject var experienceData: ExperienceData
+    var project: ProjectModel?
     var dismiss: () -> Void
     var onEdit: () -> Void
 
@@ -39,7 +40,9 @@ struct ModalView: View {
                 
                 Button(action: {
                     Task {
-                        if let projectId = experienceData.project?.projectId {
+                        print("삭제 시도 project: \(experienceData.project as Any)")
+                                print("삭제 시도 projectId: \(experienceData.project?.projectId as Any)")
+                        if let projectId = project?.projectId {
                             await deleteProject(projectId: projectId)
                             dismiss()
                         } else {
