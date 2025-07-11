@@ -11,14 +11,8 @@ struct RecordCell: View {
     @EnvironmentObject var experienceData: ExperienceData
     @Binding var navigationPath: NavigationPath
     
-<<<<<<< HEAD
-    @State private var isShowModal = false
-    @State private var selectedProject: ProjectModel? = nil
-    @State private var dataModels: [ProjectModel] = []
-=======
     @State var dataModels: [ProjectModel] = []
     @State var tagDataModels: [TagLoadModel] = []
->>>>>>> main
     
     let today = Date()
     let record: RecordDataModel
