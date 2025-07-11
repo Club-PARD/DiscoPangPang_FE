@@ -17,7 +17,7 @@ struct UserModel: Codable, Hashable {
 }
 
 struct TagModel: Codable {
-    var projectId: String
+    var projectId: UUID
     var labels: [LabelData]
 }
 

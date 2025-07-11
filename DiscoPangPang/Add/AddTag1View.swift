@@ -88,8 +88,12 @@ struct AddTag1View: View {
                             }
                             experienceData.tags = tagModel  // ✅ projectId는 여기서 안 건드림
                         } else {
+                            guard let projectId = experienceData.project?.projectId else {
+                                print("❌ projectId is nil — 경험 생성 흐름 확인 필요")
+                                return
+                            }
                             let newLabel = LabelData(labelName: selectedTagTitle ?? "", labelCategory: "실행")
-                            let newTagModel = TagModel(projectId: "", labels: [newLabel]) // 임시 projectId
+                            let newTagModel = TagModel(projectId: projectId, labels: [newLabel]) // 임시 projectId
                             experienceData.tags = newTagModel
                         }
 
