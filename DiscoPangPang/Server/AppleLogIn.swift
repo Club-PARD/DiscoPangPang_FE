@@ -9,6 +9,104 @@ import SwiftUI
 import AuthenticationServices
 
 
+// MARK: - Apple LogIn DataModel
+struct LogInModel: Hashable, Codable {
+    var identityToken: String
+    var name: String
+    var email: String
+}
+
+
+private func postUser(data: LogInModel) async {
+    // 1. URL 만들기
+    let urlString = BaseURL.baseUrl.rawValue
+    guard let url = URL(string: "\(urlString)/auth/apple") else {
+        print("❌ invalidURL")
+        return
+    }
+    
+    // 2. URLRequest 객체 생성
+    var request = URLRequest(url: url)
+    request.httpMethod = "POST"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    // 3. LogInModel 데이터를 JSON으로 변환하여 body에 추가
+    do {
+        request.httpBody = try JSONEncoder().encode(data)
+        print("📦 요청 Body: \(String(data: request.httpBody ?? Data(), encoding: .utf8) ?? "nil")")
+    } catch {
+        print("❌ Encoding Error: \(error)")
+        return
+    }
+    
+    // 4. URLSession으로 네트워크 요청
+    do {
+        let (responseData, response) = try await URLSession.shared.data(for: request)
+        
+        // 5. 응답 확인
+        guard let httpResponse = response as? HTTPURLResponse else {
+            print("❌ 서버에서 올바른 응답이 아님")
+            return
+        }
+        
+        if (200...299).contains(httpResponse.statusCode) {
+            print("✅ Post Successful! 상태코드: \(httpResponse.statusCode)")
+            
+            if let responseString = String(data: responseData, encoding: .utf8) {
+                print("📄 서버 응답 데이터: \(responseString)")
+            }
+        } else {
+            print("❌ 서버 에러 상태코드: \(httpResponse.statusCode)")
+            if let errorString = String(data: responseData, encoding: .utf8) {
+                print("📄 서버 에러 응답: \(errorString)")
+            }
+        }
+    } catch {
+        print("❌ Network Error: \(error)")
+    }
+}
+
+
+//private func postUser(data: LogInModel) async {
+//    // 1. URL 만들기
+//    let urlString = BaseURL.baseUrl.rawValue
+//    guard let url = URL(string: "\(urlString)/user") else {
+//        print("❌ invalidURL")
+//        return
+//    }
+//    
+//    // 2. 새로운 데이터 생성
+//    let newUser = LogInModel(identityToken: "", name: "", email: "")
+//    
+//    // 3. get이 아닌 경우 URLRequest 객체 생성하기
+//    var request = URLRequest(url: url)
+//    request.httpMethod = "POST"
+//    request.setValue( "application/json", forHTTPHeaderField: "Content-Type")
+//    
+//    do {
+//        request.httpBody = try JSONEncoder().encode(newUser)
+//    } catch {
+//        print("❌ Encoding Error: \(error)")
+//        return
+//    }
+//    
+//    // 4. URLSession 구성 및 URLSession Task 만든 후 네트워크 요청
+//    do {
+//        let (_, response) = try await URLSession.shared.data(for: request)
+//        
+//        // 서버로부터 데이터를 받아오는데 실패하면 error를 던지고 함수 종료
+//        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+//            print("❌ Response Error: \(response)")
+//            return
+//        }
+//        
+//        print("✅ Post Successful!")
+//    } catch {
+//        print("❌ Network Error: \(error)")
+//    }
+//}
+
+
 struct AppleLogIn: View {
     
     var onLoginSuccess: () -> Void
@@ -55,7 +153,13 @@ struct AppleLogIn: View {
                     print("✅ identityToken: \(tokenString)")
                     
                     // ✅ 서버에 전송
-                    sendIdentityTokenToServer(tokenString)
+                    let loginData = LogInModel(identityToken: tokenString, name: fullName, email: email)
+                    Task {
+                        await postUser(data: loginData)
+                    }
+                    
+                    // ✅ 서버에 전송
+//                    sendIdentityTokenToServer(tokenString)
                 } else {
                     print("❌ identityToken을 가져오지 못함")
                 }
