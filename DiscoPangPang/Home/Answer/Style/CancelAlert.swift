@@ -10,6 +10,8 @@ import SwiftUI
 struct CancelAlert: View {
     @Binding var isShowCancelAlert: Bool
     @Binding var navigationPath: NavigationPath
+    @Binding var answerText: [String]
+    @Binding var selectedIndex: Int
     
     var body: some View {
         VStack(spacing: 0) {
@@ -65,6 +67,8 @@ struct CancelAlert: View {
                 })
                 
                 Button(action: {
+                    answerText = ["", "", "", "", ""]
+                    selectedIndex = 0
                     navigationPath.removeLast()
                 }, label: {
                     Text("확인")

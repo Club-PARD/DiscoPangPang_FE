@@ -22,21 +22,26 @@ struct AnswerButton: View {
                     selectedIndex += 1
                 } else {
                     print("finish")
-                    navigationPath.removeLast()
-                }
-            }
-            Task {
-                if let projectId = experienceData.project?.projectId {
-                    let starl = STARLModel(
-                        s: answerText[0],
-                        t: answerText[1],
-                        a: answerText[2],
-                        r: answerText[3],
-                        l: answerText[4]
-                    )
-                    await updateSTARL(projectId: projectId, data: starl)
-                } else {
-                    print("❌ projectId가 없습니다")
+                    Task {
+                        if let projectId = experienceData.project?.projectId {
+                            let starl = STARLModel(
+                                s: answerText[0],
+                                t: answerText[1],
+                                a: answerText[2],
+                                r: answerText[3],
+                                l: answerText[4]
+                            )
+                            await updateSTARL(projectId: projectId, data: starl)
+                            
+                            await MainActor.run {
+                                answerText = ["", "", "", "", ""]
+                                selectedIndex = 0
+                                navigationPath.removeLast()
+                            }
+                        } else {
+                            print("❌ projectId가 없습니다")
+                        }
+                    }
                 }
             }
         }, label: {

@@ -23,7 +23,7 @@ struct AnswerView: View {
             VStack(alignment: .leading, spacing: 8) {
                 AnswerTopCell(isShowCancelAlert: $isShowCancelAlert,
                               isShowTempsaveAlert: $isShowTempSaveAlert,
-                              navigationPath: $navigationPath, answerText: $answerText)
+                              navigationPath: $navigationPath, answerText: $answerText, selectedIndex: $selectedIndex)
                     .padding(EdgeInsets(top: 0, leading: -12, bottom: 16, trailing: 0))
                 
                 ScrollView(showsIndicators: false) {
@@ -60,7 +60,7 @@ struct AnswerView: View {
             
             if isShowCancelAlert {
                 Color(red: 0/255, green: 0/255, blue: 0/255, opacity: 0.32).edgesIgnoringSafeArea(.all)
-                CancelAlert(isShowCancelAlert: $isShowCancelAlert, navigationPath: $navigationPath)
+                CancelAlert(isShowCancelAlert: $isShowCancelAlert, navigationPath: $navigationPath, answerText: $answerText, selectedIndex: $selectedIndex)
                     .padding(.horizontal, 20)
             }
         }

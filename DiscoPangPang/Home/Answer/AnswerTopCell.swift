@@ -13,6 +13,7 @@ struct AnswerTopCell: View {
     @Binding var isShowTempsaveAlert: Bool
     @Binding var navigationPath: NavigationPath
     @Binding var answerText: [String]
+    @Binding var selectedIndex: Int
     
     var body: some View {
         ZStack {
@@ -47,12 +48,17 @@ struct AnswerTopCell: View {
                                 l: answerText[4]
                             )
                             await updateSTARL(projectId: projectId, data: starl)
+                            
+                            await MainActor.run {
+                                answerText = ["", "", "", "", ""]
+                                selectedIndex = 0
+                                self.isShowTempsaveAlert.toggle()
+                                navigationPath.removeLast()
+                            }
                         } else {
                             print("❌ projectId가 없습니다")
                         }
                     }
-                    self.isShowTempsaveAlert.toggle()
-                    navigationPath.removeLast()
                 }, label: {
                     Text("임시저장")
                         .font(.pretendard(.medium, size: 12))
