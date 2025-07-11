@@ -85,7 +85,7 @@ struct PreviousButton: View {
     }
 }
 
-private func updateSTARL(projectId: UUID, data: STARLModel) async {
+func updateSTARL(projectId: UUID, data: STARLModel) async {
     // 1. URL 만들기
     let urlString = BaseURL.baseUrl.rawValue
     guard let url = URL(string: "\(urlString)/star/\(projectId)") else {
