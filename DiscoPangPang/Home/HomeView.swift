@@ -12,6 +12,8 @@ struct HomeView: View {
     @Binding var navigationPath: NavigationPath
     @Binding var isShowTempSaveAlert: Bool
     
+    let userName = UserDefaults.standard.string(forKey: "appleUserName") ?? "사용자"
+    
     var body: some View {
         ZStack {
             ScrollView {
@@ -22,7 +24,7 @@ struct HomeView: View {
                                 .padding(.bottom, 16)
                             
                             VStack(alignment: .leading, spacing: 8) {
-                                Text("준우님,")
+                                Text("\(userName)님,")
                                     .font(Font.custom("Pretendard", size: 18))
                                 
                                 Text("오늘의 경험이")
@@ -48,6 +50,7 @@ struct HomeView: View {
                     }  // HStack
                     
                     RecordCell(navigationPath: $navigationPath, record: mockRecordData)
+                        .padding(.bottom, 20)
                     
                 }  // LazyVStack
                 .padding(.leading, 20)

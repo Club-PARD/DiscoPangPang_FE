@@ -43,7 +43,7 @@ struct RecordCell: View {
         
 //        NavigationStack(path: $answerPath) {
         VStack(spacing: 20) {
-            ForEach(dataModels, id: \.projectId) { dataModel in
+            ForEach(dataModels.sorted(by: { $0.endDateTime < $1.endDateTime }), id: \.projectId) { dataModel in
                 VStack(alignment: .trailing, spacing: 16) {
                     HStack(alignment: .center) {
                         Text(formatDate(dataModel.endDateTime))
