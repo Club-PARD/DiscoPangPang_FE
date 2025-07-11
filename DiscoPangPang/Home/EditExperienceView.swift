@@ -68,12 +68,20 @@ struct EditExperienceView: View {
             Spacer()
             
             Button(action: {
-//                experienceData.project = ProjectModel(
-//                    projectId: UUID(), // 또는 로그인된 사용자의 userId
-//                    projectName: experienceData.title,
-//                    startDateTime: experienceData.startDate,
-//                    endDateTime: experienceData.endDate
-//                )
+                if let projectId = experienceData.project?.projectId {
+                    let updatedProject = ProjectModel(
+                        projectId: projectId,
+                        projectName: experienceData.title,
+                        endDateTime: experienceData.endDate,
+                        startDateTime: experienceData.startDate
+                    )
+
+                    Task {
+                        await updateProject(projectId: projectId, userId: 8, data: updatedProject)
+                    }
+                } else {
+                    print("❌ projectId 없음")
+                }
             }) {
                 HStack {
                     Text("수정완료")
@@ -166,6 +174,39 @@ struct EditExperienceView: View {
     }
 }
 
+private func updateProject(projectId: UUID, userId: Int, data: ProjectModel) async {
+    let urlString = BaseURL.baseUrl.rawValue
+    guard let url = URL(string: "\(urlString)/project/\(projectId)?userId=\(userId)") else {
+        print("❌ invalidURL")
+        return
+    }
+    
+    let newProject = ProjectModel(projectId: data.projectId, projectName: data.projectName, endDateTime: data.endDateTime, startDateTime: data.startDateTime)
+    
+    var request = URLRequest(url: url)
+    request.httpMethod = "PATCH"
+    request.setValue("application/json", forHTTPHeaderField: "Content-Type")
+    
+    do {
+        request.httpBody = try JSONEncoder().encode(newProject)
+    } catch {
+        print("❌ Encoding Error: \(error)")
+        return
+    }
+    
+    do {
+        let (_, response) = try await URLSession.shared.data(for: request)
+        
+        guard let httpResponse = response as? HTTPURLResponse, (200...299).contains(httpResponse.statusCode) else {
+            print("❌ error: \(response)")
+            return
+        }
+    } catch {
+        print("❌ Network Error: \(error)")
+    }
+}
+
 #Preview {
     EditExperienceView()
+        .environmentObject(ExperienceData())
 }

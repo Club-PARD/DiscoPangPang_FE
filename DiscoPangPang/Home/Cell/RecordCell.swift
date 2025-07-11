@@ -8,10 +8,11 @@
 import SwiftUI
 
 struct RecordCell: View {
-    
-    @State private var isShowModal = false
+    @EnvironmentObject var experienceData: ExperienceData
     @Binding var navigationPath: NavigationPath
     
+    @State private var isShowModal = false
+    @State private var selectedProject: ProjectModel? = nil
     @State private var dataModels: [ProjectModel] = []
     
     let today = Date()
@@ -52,7 +53,7 @@ struct RecordCell: View {
                         Spacer()
                         
                         Button(action: {
-                            print("버튼 눌림")
+                            selectedProject = dataModel
                             isShowModal = true
                         }){
                             Image("more")
@@ -70,26 +71,26 @@ struct RecordCell: View {
                             )
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
                         
-                        HStack(alignment: .top, spacing: 4) {
-                            ForEach(0..<record.tag.count, id: \.self){ index in
-                                let tagName = record.tag[index]
-                                let categoryName = category(for: tagName) ?? "기본"
-                                let textColor = categoryTextColors[categoryName] ?? .gray
-                                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
-                                
-                                Text(tagName)
-                                    .font(
-                                        Font.custom("Pretendard", size: 11)
-                                            .weight(.semibold)
-                                    )
-                                    .kerning(0.4)
-                                    .foregroundColor(textColor)
-                                    .padding(.vertical, 5)
-                                    .padding(.horizontal, 8)
-                                    .background(bgColor)
-                                    .cornerRadius(8)
-                            }
-                        } //HStack
+//                        HStack(alignment: .top, spacing: 4) {
+//                            ForEach(0..<record.tag.count, id: \.self){ index in
+//                                let tagName = record.tag[index]
+//                                let categoryName = category(for: tagName) ?? "기본"
+//                                let textColor = categoryTextColors[categoryName] ?? .gray
+//                                let bgColor = categoryBackgroundColors[categoryName] ?? .gray.opacity(0.1)
+//                                
+//                                Text(tagName)
+//                                    .font(
+//                                        Font.custom("Pretendard", size: 11)
+//                                            .weight(.semibold)
+//                                    )
+//                                    .kerning(0.4)
+//                                    .foregroundColor(textColor)
+//                                    .padding(.vertical, 5)
+//                                    .padding(.horizontal, 8)
+//                                    .background(bgColor)
+//                                    .cornerRadius(8)
+//                            }
+//                        } //HStack
                     } //VStack
                     .frame(maxWidth: .infinity, alignment: .topLeading)
                     
@@ -122,13 +123,27 @@ struct RecordCell: View {
                 .cornerRadius(16)
                 .shadow(color: .black.opacity(0.03), radius: 5, x: 0, y: 4)
                 .sheet(isPresented: $isShowModal) {
-                    ModalView {
-                        isShowModal = false
+                    if let selectedProject {
+                        ModalView(
+                            dismiss: {
+                                isShowModal = false
+                            },
+                            onEdit: {
+                                experienceData.project = selectedProject
+                                experienceData.title = selectedProject.projectName
+                                experienceData.startDate = selectedProject.startDateTime
+                                experienceData.endDate = selectedProject.endDateTime
+                                experienceData.hasSelectedStartDate = true
+                                experienceData.hasSelectedEndDate = true
+                                
+                                navigationPath.append("EditExperience")
+                                isShowModal = false
+                            }
+                        )
+                        .presentationDetents([.height(136)])
+                        .presentationDragIndicator(.hidden)
                     }
-                    .presentationDetents([.height(136)])
-                    .presentationDragIndicator(.hidden)
                 }
-                
             }
         }
         .onAppear {
