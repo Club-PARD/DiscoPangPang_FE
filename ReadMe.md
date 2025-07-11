@@ -14,8 +14,12 @@
 
 `Testing Now...` -> cmd + E
 
-'''
+**Testing Now...** -> cmd + B
+
+```
 Testing Now...
 Testing Now...
 Testing Now...
-'''
+```
+
+
