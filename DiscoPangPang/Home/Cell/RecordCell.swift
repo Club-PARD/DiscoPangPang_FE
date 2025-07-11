@@ -132,15 +132,15 @@ struct RecordCell: View {
             }
         }
         .onReceive(NotificationCenter.default.publisher(for: .didDeleteProject)) { notification in
-                    Task {
-                        do {
-                            print("🔔 프로젝트 삭제 알림 수신, 데이터 다시 불러오기")
-                            dataModels = try await getProjectsWithTags(for: 8)
-                        } catch {
-                            print("❌ Failed to reload projects after deletion: \(error)")
-                        }
-                    }
+            Task {
+                do {
+                    print("🔔 프로젝트 삭제 알림 수신, 데이터 다시 불러오기")
+                    dataModels = try await getProjectsWithTags(for: 8)
+                } catch {
+                    print("❌ Failed to reload projects after deletion: \(error)")
                 }
+            }
+        }
     }
     // 날짜 포맷터 함수
     func formatDate(_ date: Date?) -> String {

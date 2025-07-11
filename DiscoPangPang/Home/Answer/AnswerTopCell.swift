@@ -14,7 +14,7 @@ struct AnswerTopCell: View {
     
     var body: some View {
         ZStack {
-            Text("PARD 5기 롱커톤")
+            Text("답변 기록하기")
             
             HStack {
                 Button(action: {
