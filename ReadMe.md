@@ -43,9 +43,9 @@
 
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/8b1f965e-6a1f-4d49-8e36-f510cbcd8d6f" width="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/ef56f8ae-9953-42e3-a01a-4040cb3ac506" width="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/51b057cc-c418-4f78-a366-97d19f5ebdc0" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/8b1f965e-6a1f-4d49-8e36-f510cbcd8d6f" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/ef56f8ae-9953-42e3-a01a-4040cb3ac506" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/51b057cc-c418-4f78-a366-97d19f5ebdc0" width="200"></td>
   </tr>
   <tr>
     <td align="center">[  Mascot. 기분이  ]</td>
@@ -53,9 +53,9 @@
     <td align="center">[  Design. 허준우  ]</td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/5f151885-737e-4225-afc8-39676a4d940a" width="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/713b0051-090a-483b-bd25-82ed8199516c" width="250"></td>
-    <td><img src="https://github.com/user-attachments/assets/7b5b8f4e-b0fc-4118-899c-2f861aeabc92" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/5f151885-737e-4225-afc8-39676a4d940a" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/713b0051-090a-483b-bd25-82ed8199516c" width="200"></td>
+    <td><img src="https://github.com/user-attachments/assets/7b5b8f4e-b0fc-4118-899c-2f861aeabc92" width="200"></td>
   </tr>
   <tr>
     <td align="center">[  iOS. 임재성  ]</td>
