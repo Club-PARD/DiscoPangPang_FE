@@ -85,6 +85,7 @@
 
 ### (5) 활동 분석
 &nbsp;&nbsp;&nbsp;&nbsp;내가 활동에서 각 도메인의 상위 5개의 강점들을 분석하여 시각적으로 제시
+&nbsp;&nbsp;&nbsp;&nbsp;-> 강점에 따라 도형이 커짐
 
 
 ## App Flow
