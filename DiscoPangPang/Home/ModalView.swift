@@ -39,6 +39,8 @@ struct ModalView: View {
                         Text("경험 수정하기")
                             .font(Font.custom("Pretendard", size: 13))
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
+                        
+                        Spacer()
                     }  //HStack
                 })
                 
@@ -64,6 +66,8 @@ struct ModalView: View {
                         Text("경험 삭제하기")
                             .font(Font.custom("Pretendard", size: 13))
                             .foregroundColor(Color(red: 0.12, green: 0.13, blue: 0.14))
+                        
+                        Spacer()
                     }  //HStack
                 })
             } // VStack
