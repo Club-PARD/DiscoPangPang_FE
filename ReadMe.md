@@ -2,8 +2,10 @@
 
 <img width="5760" height="3240" alt="표지" src="https://github.com/user-attachments/assets/8be67b35-d52a-42aa-b99b-a08c81a3949b" />
 
+> 
 > [ 기분 : 기록하고 분석하다 ]  
 > 대학생의 경험정리와 강점파악을 도와주는 앱 서비스
+> 
 
 
 ## About Service. 'GIBOON'
@@ -119,7 +121,7 @@
     <td align="center">[  태그선택 2  ]</td>
     <td align="center">[  태그선택 3  ]</td>
     <td align="center">[  태그선택 4  ]</td>
-    <td align="center">[  Notification 알림  ]</td>
+    <td align="center">[ Notification 알림 ]</td>
   </tr>
 </table>
 
