@@ -19,9 +19,9 @@
 
 <table>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/8b1f965e-6a1f-4d49-8e36-f510cbcd8d6f" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/ef56f8ae-9953-42e3-a01a-4040cb3ac506" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/51b057cc-c418-4f78-a366-97d19f5ebdc0" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/8b1f965e-6a1f-4d49-8e36-f510cbcd8d6f" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/ef56f8ae-9953-42e3-a01a-4040cb3ac506" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/51b057cc-c418-4f78-a366-97d19f5ebdc0" width="250"></td>
   </tr>
   <tr>
     <td align="center">[  Mascot. 기분이  ]</td>
@@ -29,9 +29,9 @@
     <td align="center">[  Design. 허준우  ]</td>
   </tr>
   <tr>
-    <td><img src="https://github.com/user-attachments/assets/5f151885-737e-4225-afc8-39676a4d940a" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/713b0051-090a-483b-bd25-82ed8199516c" width="300"></td>
-    <td><img src="https://github.com/user-attachments/assets/7b5b8f4e-b0fc-4118-899c-2f861aeabc92" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/5f151885-737e-4225-afc8-39676a4d940a" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/713b0051-090a-483b-bd25-82ed8199516c" width="250"></td>
+    <td><img src="https://github.com/user-attachments/assets/7b5b8f4e-b0fc-4118-899c-2f861aeabc92" width="250"></td>
   </tr>
   <tr>
     <td align="center">[  iOS. 임재성  ]</td>
@@ -54,7 +54,7 @@
 
 ### (4) 활동 기록
   활동을 통해 배운 점들을 기록한다
-  - 태그 : 내가 한 활동에서 배운점들을 터치로 쉽게 기록 (직무에 필요한 강점 : 4개 도메인 34개 태그)
+  - 태그 : 내가 한 활동에서 배운점들을 터치로 쉽게 기록 (직무에 필요한 강점 : 4개 도메인 34개 태그)
   - STARL 기법 : 내가 한 활동에서 배운 점들을 STARL 기법으로 체계적으로 기록
 
 ### (5) 활동 분석
@@ -117,18 +117,39 @@
   </tr>
 </table>
 
-- 활동 분석
-  
+- 히스토리
 <table>
   <tr>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
-    <td><img src="" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/7c9d1d25-3c67-4455-930f-9d341297739e" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/62a256b3-2955-427b-8c52-4979f92f1105" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/16ce6a51-a9f7-451c-9a2d-eb1c172b3ac1" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/ba74423c-f65e-47f9-b192-88b4b4950351" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/41a766c2-d8b0-423a-a460-baac624b9709" width="300"></td>
   </tr>
   <tr>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
-    <td align="center">[  ㅇㅇㅇ  ]</td>
+    <td align="center">[  히스토리 뷰  ]</td>
+    <td align="center">[  히스토리 1  ]</td>
+    <td align="center">[  히스토리 2  ]</td>
+    <td align="center">[  히스토리 3  ]</td>
+    <td align="center">[  히스토리 4  ]</td>
+  </tr>
+</table>
+
+- 활동 분석
+<table>
+  <tr>
+    <td><img src="https://github.com/user-attachments/assets/e616f853-98ad-412f-9ee2-38dce296c54c" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/437ec0ca-b7fc-40c1-8d1d-5370abb0b0cb" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/9cdebc8c-4b84-4cc2-b3d8-1d35bd9d6244" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/d1de9a94-fd81-4333-8e4e-c3cd6e8c2b7c" width="300"></td>
+    <td><img src="https://github.com/user-attachments/assets/8ead02cb-2695-46a5-807d-773fea0cdc60" width="300"></td>
+  </tr>
+  <tr>
+    <td align="center">[  활동분석 뷰  ]</td>
+    <td align="center">[  활동분석 1  ]</td>
+    <td align="center">[  활동분석 2  ]</td>
+    <td align="center">[  활동분석 3  ]</td>
+    <td align="center">[  활동분석 4  ]</td>
   </tr>
 </table>
 
